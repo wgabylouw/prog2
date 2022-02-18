@@ -14,15 +14,24 @@ namespace TP01_WineQuality
     {
         static void Main(string[] args)
         {
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            //var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            //{
+            //    Delimiter = ";",
+            //};
+            //using (var reader = new StreamReader("C:\\Users\\gable\\source\\repos\\ecole\\TP1_prog\\train.csv"))
+            //using (var csv = new CsvReader(reader, config))
+            //{
+            //    csv.Context.RegisterClassMap<entete>();
+            //    var records = csv.GetRecords<colone>();
+            //    foreach (var item in records)
+            //    {
+            //        Console.WriteLine(item.);
+            //    }
+            //}
+            List<Wine> vin1 = Csv.ImportAllSamples("C:\\Users\\gable\\source\\repos\\Prog2_avec_fred\\prog2\\TP1_prog\\samples\\sample_01.csv");
+            foreach (var item in vin1)
             {
-                Delimiter = ";",
-            };
-            using (var reader = new StreamReader("C:\\Users\\gable\\source\\repos\\ecole\\TP1_prog\\train.csv"))
-            using (var csv = new CsvReader(reader, config))
-            {
-                csv.Context.RegisterClassMap<entete>();
-                var records = csv.GetRecords<colone>();
+                Console.WriteLine(item.Alcohol);
             }
         }
         public class colone
