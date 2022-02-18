@@ -7,8 +7,8 @@ namespace TP01_WineQuality
 {
     internal interface IWine
     {
-        IWine ImportOneSample(string filename_sample_csv);
-        List<IWine> ImportAllSamples(string filename_samples_csv);
+        Wine ImportOneSample(string filename_sample_csv);
+        List<Wine> ImportAllSamples(string filename_samples_csv);
         void PrintInfo();
     }
 }

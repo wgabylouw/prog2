@@ -9,7 +9,7 @@ using System.IO;
 
 namespace TP01_WineQuality
 {
-    public class Wine
+    public class Wine 
     {
         [CsvHelper.Configuration.Attributes.Name("fixed acidity")]
         public float FixedAcidity { get; set; }
@@ -54,25 +54,43 @@ namespace TP01_WineQuality
 
         //    }
         //}
-        
-        public sealed class entete : ClassMap<Wine>
+    }
+    class Csv : IWine
+    {
+        public Wine ImportOneSample(string filename_sample_csv)
         {
-            public entete()
+            Wine data = new Wine();
+
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
-                AutoMap(CultureInfo.InvariantCulture);
-                Map(m => m.FixedAcidity).Name("fixed acidity");
-                Map(m => m.VolatileAcidity).Name("volatile acidity");
-                Map(m => m.CitricAcid).Name("citric acid");
-                Map(m => m.ResidualSugar).Name("residual sugar");
-                Map(m => m.FreeSulfurDioxide).Name("free sulfur dioxide");
-                Map(m => m.TotalSulfurDioxide).Name("total sulfur dioxide");
+                Delimiter = ";",
+            };
+
+            using (var reader = new StreamReader(filename_sample_csv))
+            using (var csv = new CsvReader(reader, config))
+            {
+                //data = csv.GetRecords<Wine>().ToList();
+                csv.Read();
+
+                data.FixedAcidity = csv.GetRecord<float>();
+                data.VolatileAcidity = csv.GetField<float>("volatile acidity");
+                data.CitricAcid = csv.GetField<float>("citric acid");
+                data.ResidualSugar = csv.GetField<float>("residual sugar");
+                data.Chlorides = csv.GetField<float>("chlorides");
+                data.FreeSulfurDioxide = csv.GetField<float>("free sulfur dioxide");
+                data.TotalSulfurDioxide = csv.GetField<float>("total sulfur dioxide");
+                data.Density = csv.GetField<float>("density");
+                data.PH = csv.GetField<float>("pH");
+                data.Sulphates = csv.GetField<float>("sulphates");
+                data.Alcohol = csv.GetField<float>("alcohol");
+                data.Quality = csv.GetField<int>("quality");
+
 
             }
+
+            return data;
         }
-    }
-    class Csv
-    {
-        static public List<Wine> ImportAllSamples(string filename_samples_csv)
+        public List<Wine> ImportAllSamples(string filename_samples_csv)
         {
             List<Wine> data;
 
@@ -88,6 +106,10 @@ namespace TP01_WineQuality
             }
 
             return data;
+        }
+        public void PrintInfo()
+        {
+
         }
     }
 

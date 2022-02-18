@@ -14,56 +14,19 @@ namespace TP01_WineQuality
     {
         static void Main(string[] args)
         {
-            //var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-            //{
-            //    Delimiter = ";",
-            //};
-            //using (var reader = new StreamReader("C:\\Users\\gable\\source\\repos\\ecole\\TP1_prog\\train.csv"))
-            //using (var csv = new CsvReader(reader, config))
-            //{
-            //    csv.Context.RegisterClassMap<entete>();
-            //    var records = csv.GetRecords<colone>();
-            //    foreach (var item in records)
-            //    {
-            //        Console.WriteLine(item.);
-            //    }
-            //}
-            List<Wine> vin1 = Csv.ImportAllSamples("C:\\Users\\gable\\source\\repos\\Prog2_avec_fred\\prog2\\TP1_prog\\samples\\sample_01.csv");
+            Csv csv = new Csv();
+            List<Wine> vin1 = csv.ImportAllSamples("C:\\Users\\gable\\source\\repos\\Prog2_avec_fred\\prog2\\TP1_prog\\train.csv");
             foreach (var item in vin1)
             {
-                Console.WriteLine(item.Alcohol);
+                Console.WriteLine(item.FixedAcidity);
             }
-        }
-        public class colone
-        {
-            public float fixedAcidity { get; set; }
-            public float volatileAcidity { get; set; }
-            public float citricAcid { get; set; }
-            public float residualSugar { get; set; }
-            public float chlorides { get; set; }
-            public float freeSulfurDioxide { get; set; }
-            public float totalSulfurDioxide { get; set; }
-            public float density { get; set; }
-            public float pH { get; set; }
-            public float sulphates { get; set; }
-            public float alcohol { get; set; }
-            public int quality { get; set; }
+            Wine vin2 = csv.ImportOneSample("C:\\Users\\gable\\source\\repos\\Prog2_avec_fred\\prog2\\TP1_prog\\train.csv");
+            Console.WriteLine("{0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} | {8} | {9} | {10} | {11}", 
+                vin2.FixedAcidity, vin2.VolatileAcidity, vin2.CitricAcid, vin2.ResidualSugar, vin2.Chlorides,
+                vin2.FreeSulfurDioxide,vin2.TotalSulfurDioxide,vin2.Density,vin2.PH,vin2.Sulphates,vin2.Alcohol,vin2.Quality);
         }
 
-        public sealed class entete : ClassMap<colone>
-        {
-            public entete()
-            {
-                AutoMap(CultureInfo.InvariantCulture);
-                Map(m => m.fixedAcidity).Name("fixed acidity");
-                Map(m => m.volatileAcidity).Name("volatile acidity");
-                Map(m => m.citricAcid).Name("citric acid");
-                Map(m => m.residualSugar).Name("residual sugar");
-                Map(m => m.freeSulfurDioxide).Name("free sulfur dioxide");
-                Map(m => m.totalSulfurDioxide).Name("total sulfur dioxide");
 
-            }
-        }
     }
 
 }
