@@ -38,7 +38,69 @@ namespace TP01_WineQuality
 
 
 
-        public Wine ImportOneSample(string filename_sample_csv)
+        //IWine ImportOneSample(string filename_sample_csv)
+        //{
+        //    IWine data = new Wine();
+
+        //    var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        //    {
+        //        Delimiter = ";",
+        //    };
+
+        //    using (var reader = new StreamReader(filename_sample_csv))
+        //    using (var csv = new CsvReader(reader, config))
+        //    {
+        //        //data = csv.GetRecords<Wine>().ToList();
+        //        csv.Read();
+
+        //        data.FixedAcidity = csv.GetRecord<float>();
+        //        data.VolatileAcidity = csv.GetField<float>("volatile acidity");
+        //        data.CitricAcid = csv.GetField<float>("citric acid");
+        //        data.ResidualSugar = csv.GetField<float>("residual sugar");
+        //        data.Chlorides = csv.GetField<float>("chlorides");
+        //        data.FreeSulfurDioxide = csv.GetField<float>("free sulfur dioxide");
+        //        data.TotalSulfurDioxide = csv.GetField<float>("total sulfur dioxide");
+        //        data.Density = csv.GetField<float>("density");
+        //        data.PH = csv.GetField<float>("pH");
+        //        data.Sulphates = csv.GetField<float>("sulphates");
+        //        data.Alcohol = csv.GetField<float>("alcohol");
+        //        data.Quality = csv.GetField<int>("quality");
+
+
+        //    }
+
+        //    return data;
+        //}
+        //List<IWine> ImportAllSamples(string filename_samples_csv)
+        //{
+        //    List<IWine> data;
+
+        //    var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        //    {
+        //        Delimiter = ";",
+        //    };
+
+        //    using (var reader = new StreamReader(filename_samples_csv))
+        //    using (var csv = new CsvReader(reader, config))
+        //    {
+        //        data = csv.GetRecords<IWine>().ToList();
+        //    }
+
+        //    return data;
+        //}
+        public void PrintInfo()
+        {
+            
+            
+            Console.WriteLine(string.Format("{0:00.0} | {1:0.000} | {2:0.00} | {3:00.00} | {4:0.00000000000000000} | {5:00.0} | {6:000.0} | {7:0.0000000000000000} | {8:0.00} | {9:0.00} | {10:00.0} | {11:0}",
+                this.FixedAcidity, this.VolatileAcidity, this.CitricAcid, this.ResidualSugar, this.Chlorides,
+                this.FreeSulfurDioxide, this.TotalSulfurDioxide, this.Density, this.PH, this.Sulphates, this.Alcohol, this.Quality));
+            //Console.WriteLine("{0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} | {8} | {9} | {10} | {11}",
+            //    this.FixedAcidity, this.VolatileAcidity, this.CitricAcid, this.ResidualSugar, this.Chlorides,
+            //    this.FreeSulfurDioxide, this.TotalSulfurDioxide, this.Density, this.PH, this.Sulphates, this.Alcohol, this.Quality);
+        }
+
+        IWine IWine.ImportOneSample(string filename_sample_csv)
         {
             Wine data = new Wine();
 
@@ -71,9 +133,10 @@ namespace TP01_WineQuality
 
             return data;
         }
-        public List<Wine> ImportAllSamples(string filename_samples_csv)
+
+        List<IWine> IWine.ImportAllSamples(string filename_samples_csv)
         {
-            List<Wine> data;
+            List<IWine> data;
 
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
@@ -83,21 +146,10 @@ namespace TP01_WineQuality
             using (var reader = new StreamReader(filename_samples_csv))
             using (var csv = new CsvReader(reader, config))
             {
-                data = csv.GetRecords<Wine>().ToList();
+                data = csv.GetRecords<Wine>().Cast<IWine>().ToList();
             }
 
             return data;
-        }
-        public void PrintInfo()
-        {
-            
-            
-            Console.WriteLine(string.Format("{0:00.0} | {1:0.000} | {2:0.00} | {3:00.00} | {4:0.00000000000000000} | {5:00.0} | {6:000.0} | {7:0.0000000000000000} | {8:0.00} | {9:0.00} | {10:00.0} | {11:0}",
-                this.FixedAcidity, this.VolatileAcidity, this.CitricAcid, this.ResidualSugar, this.Chlorides,
-                this.FreeSulfurDioxide, this.TotalSulfurDioxide, this.Density, this.PH, this.Sulphates, this.Alcohol, this.Quality));
-            //Console.WriteLine("{0} | {1} | {2} | {3} | {4} | {5} | {6} | {7} | {8} | {9} | {10} | {11}",
-            //    this.FixedAcidity, this.VolatileAcidity, this.CitricAcid, this.ResidualSugar, this.Chlorides,
-            //    this.FreeSulfurDioxide, this.TotalSulfurDioxide, this.Density, this.PH, this.Sulphates, this.Alcohol, this.Quality);
         }
     }
     //class Csv : IWine

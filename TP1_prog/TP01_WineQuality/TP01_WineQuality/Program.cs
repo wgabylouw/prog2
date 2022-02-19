@@ -14,17 +14,14 @@ namespace TP01_WineQuality
     {
         static void Main(string[] args)
         {
-
-            Wine vin2 = new Wine();
-            vin2 = vin2.ImportOneSample("C:\\Users\\gable\\source\\repos\\Prog2_avec_fred\\prog2\\TP1_prog\\train.csv");
-
-            
-
+            string filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "train.csv");
+            IWine vin2 = new Wine();
+            vin2 = vin2.ImportOneSample(filepath);
 
             vin2.PrintInfo();
 
-            List<Wine> ListeDeVin = new List<Wine>();
-            ListeDeVin = vin2.ImportAllSamples("C:\\Users\\gable\\source\\repos\\Prog2_avec_fred\\prog2\\TP1_prog\\train.csv");
+            List<IWine> ListeDeVin = new List<IWine>();
+            ListeDeVin = vin2.ImportAllSamples(filepath);
             foreach (Wine item in ListeDeVin)
             {
                 item.PrintInfo();
