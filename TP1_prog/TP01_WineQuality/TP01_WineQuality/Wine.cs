@@ -90,20 +90,8 @@ namespace TP01_WineQuality
         }
         public void PrintInfo()
         {
-            //Console.WriteLine(
-            //    $"fixed acidity : {this.FixedAcidity} | " +
-            //    $"volatile acidity : {this.CitricAcid} | " +
-            //    $"citric acid : {this.ResidualSugar} | " +
-            //    $"chlorides : {this.Chlorides} | " +
-            //    $"free sulfur dioxide : {this.FreeSulfurDioxide}" +
-            //    $"total sulfur dioxide : {this.TotalSulfurDioxide} | " +
-            //    $"density : {this.Density} | " +
-            //    $"pH : {this.PH} | " +
-            //    $"sulphates : {this.Sulphates} | " + 
-            //    $"alcohol : {this.Alcohol} | " +
-            //    $"quality : {this.Quality}"
-            //);
-
+            
+            
             Console.WriteLine(string.Format("{0:00.0} | {1:0.000} | {2:0.00} | {3:00.00} | {4:0.00000000000000000} | {5:00.0} | {6:000.0} | {7:0.0000000000000000} | {8:0.00} | {9:0.00} | {10:00.0} | {11:0}",
                 this.FixedAcidity, this.VolatileAcidity, this.CitricAcid, this.ResidualSugar, this.Chlorides,
                 this.FreeSulfurDioxide, this.TotalSulfurDioxide, this.Density, this.PH, this.Sulphates, this.Alcohol, this.Quality));

@@ -18,11 +18,14 @@ namespace TP01_WineQuality
             Wine vin2 = new Wine();
             vin2 = vin2.ImportOneSample("C:\\Users\\gable\\source\\repos\\Prog2_avec_fred\\prog2\\TP1_prog\\train.csv");
 
+            
+
+
             vin2.PrintInfo();
 
-            List<Wine> vin1 = new List<Wine>();
-            vin1 = vin2.ImportAllSamples("C:\\Users\\gable\\source\\repos\\Prog2_avec_fred\\prog2\\TP1_prog\\train.csv");
-            foreach (Wine item in vin1)
+            List<Wine> ListeDeVin = new List<Wine>();
+            ListeDeVin = vin2.ImportAllSamples("C:\\Users\\gable\\source\\repos\\Prog2_avec_fred\\prog2\\TP1_prog\\train.csv");
+            foreach (Wine item in ListeDeVin)
             {
                 item.PrintInfo();
             }
