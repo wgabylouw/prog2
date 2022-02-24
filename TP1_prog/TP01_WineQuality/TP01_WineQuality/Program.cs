@@ -23,12 +23,12 @@ namespace TP01_WineQuality
 
             vin2.PrintInfo();
 
-            List<Wine> ListeDeVin = new List<Wine>();
-            ListeDeVin = vin2.ImportAllSamples(filepath);
-            foreach (Wine item in ListeDeVin)
-            {
-                item.PrintInfo();
-            }
+            //List<Wine> ListeDeVin = new List<Wine>();
+            //ListeDeVin = vin2.ImportAllSamples(filepath);
+            //foreach (Wine item in ListeDeVin)
+            //{
+            //    item.PrintInfo();
+            //}
 
             //Csv csv = new Csv();
             //List<Wine> vin1 = csv.ImportAllSamples("C:\\Users\\gable\\source\\repos\\Prog2_avec_fred\\prog2\\TP1_prog\\train.csv");

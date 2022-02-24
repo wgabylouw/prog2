@@ -52,21 +52,21 @@ namespace TP01_WineQuality
             {
                 //data = csv.GetRecords<Wine>().ToList();
                 csv.Read();
+                csv.ReadHeader();
 
-                data.FixedAcidity = csv.GetRecord<float>();
-                data.VolatileAcidity = csv.GetField<float>("volatile acidity");
-                data.CitricAcid = csv.GetField<float>("citric acid");
-                data.ResidualSugar = csv.GetField<float>("residual sugar");
-                data.Chlorides = csv.GetField<float>("chlorides");
-                data.FreeSulfurDioxide = csv.GetField<float>("free sulfur dioxide");
-                data.TotalSulfurDioxide = csv.GetField<float>("total sulfur dioxide");
-                data.Density = csv.GetField<float>("density");
-                data.PH = csv.GetField<float>("pH");
-                data.Sulphates = csv.GetField<float>("sulphates");
-                data.Alcohol = csv.GetField<float>("alcohol");
-                data.Quality = csv.GetField<int>("quality");
-
-
+                csv.Read();
+                    data.FixedAcidity = csv.GetField<float>("fixed acidity");
+                    data.VolatileAcidity = csv.GetField<float>("volatile acidity");
+                    data.CitricAcid = csv.GetField<float>("citric acid");
+                    data.ResidualSugar = csv.GetField<float>("residual sugar");
+                    data.Chlorides = csv.GetField<float>("chlorides");
+                    data.FreeSulfurDioxide = csv.GetField<float>("free sulfur dioxide");
+                    data.TotalSulfurDioxide = csv.GetField<float>("total sulfur dioxide");
+                    data.Density = csv.GetField<float>("density");
+                    data.PH = csv.GetField<float>("pH");
+                    data.Sulphates = csv.GetField<float>("sulphates");
+                    data.Alcohol = csv.GetField<float>("alcohol");
+                    data.Quality = csv.GetField<int>("quality");
             }
 
             return data;
