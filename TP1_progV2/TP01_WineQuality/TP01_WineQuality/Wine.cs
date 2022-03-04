@@ -22,13 +22,18 @@ namespace TP01_WineQuality
         [CsvHelper.Configuration.Attributes.Name("alcohol")]
         public float Alcohol { get; set; }
 
-
         [CsvHelper.Configuration.Attributes.Name("quality")]
         public int Label { get; set; }
+
+        /*------------------------------------------------------------------------------------------------------------------------------------*/
 
         public float[] Features { get
             { return new float[] { this.Alcohol, this.Sulphates,this.CitricAcid,this.VolatileAcidity }; }
         }
+
+        /*------------------------------------------------------------------------------------------------------------------------------------*/
+
+        /* 2.3 Méthod Wine PrintInfor || Entrée : aucune || Sortie : aucune || Rôle : Format d'affichage graphique "Train List Objet"*/
         public void PrintInfo()
         {
             Console.WriteLine(string.Format("{0:00.0} | {1:0.00} | {2:0.00} | {3:0.000} | {4:0}",

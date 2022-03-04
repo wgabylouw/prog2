@@ -16,18 +16,28 @@ namespace TP01_WineQuality
         private int K;
         private int Sort_Algorithm;
         /* à compléter */
+
+        /*------------------------------------------------------------------------------------------------------------------------------------*/
+
+        /* 2.1 Méthode KNN Train || Entrées : "Train List CSV", "k", "Choix Méthode Tri" || Sortie : Aucune || Rôle : Appel KNN Méthode ImportAllSamples et 
+           Méthode Wine PrintInfo*/
         public void Train(string filename_train_samples_csv, int k = 1, int sort_algorithm = 1)
         {
+            /* 2.2 Train List Objet = KNN Méthode ImportAllSample("Train List CSV")*/
             data_train =  this.ImportAllSamples(filename_train_samples_csv);
             K = k;
             Sort_Algorithm = sort_algorithm;
 
-
+            /* 2.3 Appel Méthode Wine PrintInfo chaque "Train Objet de la List" */
             foreach (var item in data_train)
             {
                 item.PrintInfo();
             }
         }
+
+        /*------------------------------------------------------------------------------------------------------------------------------------*/
+
+        /* 3.2 Méthode KNN EuclideanDistance || Entrées : "Vin Objet", "Train Objet.1 ligne"  || Sortie : "1 distance Euclidienne Vin-Train" */
         public float EuclideanDistance(Wine first_sample, Wine second_sample)
         {
             float distance =0;
@@ -41,6 +51,11 @@ namespace TP01_WineQuality
 
             return distance;
         }
+
+        /*------------------------------------------------------------------------------------------------------------------------------------*/
+
+        /* 2.2 Méthode KNN ImportAllSample || Entrée : "Train List CSV" || Sortie : "Train List Objet" || Rôle : Transfert "Train List CSV" en 
+               "Train List Objet"*/
         public List<Wine> ImportAllSamples(string _filename_samples_csv)
         {
             List<Wine> data;
@@ -58,21 +73,29 @@ namespace TP01_WineQuality
 
             return data;
         }
+
+        /*------------------------------------------------------------------------------------------------------------------------------------*/
+
+        /* 1.1 Méthode KNN ImportOneSample || Entrée : "Vin CSV" || Sortie: "Vin Objet" || Rôle : Transfert "Vin CSV" en "Vin Objet"*/
         public Wine ImportOneSample(string filename_sample_csv)
         {
             Wine data = new Wine();
 
+            /*Changer le délimiter CSV pour ";"*/
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 Delimiter = ";",
             };
 
+            /*Lecture de fichier CSV*/
             using (var reader = new StreamReader(filename_sample_csv))
             using (var csv = new CsvReader(reader, config))
             {
+                /*Lecture de l'entête CSV*/
                 csv.Read();
                 csv.ReadHeader();
 
+                /*Attribution de valeurs aux Vin Objet.attributs*/
                 csv.Read();
                 data.VolatileAcidity = csv.GetField<float>("volatile acidity");
                 data.CitricAcid = csv.GetField<float>("citric acid");
@@ -83,26 +106,38 @@ namespace TP01_WineQuality
 
             return data;
         }
+
+        /*------------------------------------------------------------------------------------------------------------------------------------*/
+
+        /* 3.1 Méthode KNN Predict || Entrée : "Vin Objet" || Sortie: "Résultat Qualité" || Rôle : Appel Méthodes KNN EuclideanDistance, KNN (SelectionSort 
+           ou ShellSort) et KNN Vote et donne le résultat de la qualité du vin échantilloné*/
         public int Predict(Wine sample_to_predict)
         {
+            /*"Distances Euclidiennes Vin-Train"*/
             List<float> listeDistance = new List<float>();
+
+            /*"Qualités Vin-Train"*/
             List<int> listeLabels = new List<int>();
             for (int i=0;i<data_train.Count();i++)
             {
+                /*" 3.2 Distances Euclidiennes Vin-Train = KNN Méthode EuclideanDistance("Vin Objet", "Train List Objet")*/
                 listeDistance.Add(EuclideanDistance(sample_to_predict, data_train[i]));
                 listeLabels.Add(data_train[i].Label);
             }
 
+            /* 3.3 Choix et appel de KNN Méthode SelectionSort ou ShellSort("Distances Euclidiennes Vin-Train non triées", "Qualités non triées")*/
             if (Sort_Algorithm == 1)
                 this.SelectionSort(listeDistance, listeLabels);
             else 
                 this.ShellSort(listeDistance, listeLabels);
-             
-
-
-
+            
+            /* 3.4 Appel et retour de KNN Méthode Vote("Qualités triées")*/
             return this.Vote(listeLabels);
         }
+
+        /*------------------------------------------------------------------------------------------------------------------------------------*/
+
+        /* 3.4 Méthode KNN Vote || Entrée : "Qualités triées" || Sortie: "Résultat Qualité" || Rôle : Prédire la qualité du vin échantilloné*/
         public int Vote(List<int> sorted_labels)
         {
             int compteur3=0,compteur6=0,compteur9 = 0;
@@ -122,6 +157,11 @@ namespace TP01_WineQuality
                 return 9;
             else return 6;
         }
+
+        /*------------------------------------------------------------------------------------------------------------------------------------*/
+
+        /* 3.3 Méthode KNN ShellSort || Entrées : "Distances Euclidiennes Vin-Train non triées", "Qualités non triées" || Sortie: "Aucune" 
+           || Rôle : Trier "Distances Euclidiennes Vin-Train" */
         public void ShellSort(List<float> distances, List<int> labels)
         {
             int compteur = distances.Count();
@@ -152,6 +192,11 @@ namespace TP01_WineQuality
                 }
             }
         }
+
+        /*------------------------------------------------------------------------------------------------------------------------------------*/
+
+        /* 3.3 Méthode KNN SelectionSort || Entrées : "Distances Euclidiennes Vin-Train non triées", "Qualités non triées" || Sortie: "Aucune" 
+           || Rôle : Trier "Distances Euclidiennes Vin-Train" */
         public void SelectionSort(List<float> distances, List<int> labels)
         {
             float temp;
@@ -176,8 +221,5 @@ namespace TP01_WineQuality
                 }
             }
         }
-
-
-
     }
 }
