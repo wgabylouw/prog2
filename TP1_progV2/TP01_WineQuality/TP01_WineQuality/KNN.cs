@@ -147,12 +147,23 @@ namespace TP01_WineQuality
                             Tableau[j, 2]++;    
                     }     
             }
+            Console.WriteLine();
+            foreach (var item in labels)
+                Console.Write("      " + item);
+            Console.WriteLine();
+            foreach (var item in labels)
+                Console.Write("________");
+
             for (int i = 0;i < Tableau.GetLength(0); i++)
             {
                 Console.WriteLine();
-                for (int j = 0; j < Tableau.GetLength(0); j++)
-                    Console.Write("{0} ", Tableau[i, j]);
+                Console.Write(labels[i]+"    |"+ Tableau[i,0]);
+                for (int j = 1; j < Tableau.GetLength(0); j++)
+                    Console.Write("     {0}", Tableau[i, j]);
             }
+
+            Console.WriteLine();
+            Console.WriteLine();
         }
 
          
@@ -206,7 +217,7 @@ namespace TP01_WineQuality
             else if (compteur3 == compteur6)
                 return 3;
             else if (compteur3 == compteur9)
-                return 3;
+                return 9;
             else return 6;
 
         }
