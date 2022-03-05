@@ -19,6 +19,8 @@ namespace TP01_WineQuality
             /*"Vin CSV*/
             string filepath1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..","samples", "sample_01.csv");
 
+            string fileTest = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "test.csv");
+
             /*Train List CSV*/
             string filepath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "train.csv");
 
@@ -36,9 +38,11 @@ namespace TP01_WineQuality
 
 
             /* 3. Appel KNN Méthode Predict("Vin Objet")*/
-            Console.WriteLine(knn.Predict(vin1));
+            //Console.WriteLine(knn.Predict(vin1));
 
+            Console.WriteLine(knn.Evaluate(fileTest));
 
+            Console.ReadLine();
             //Wine vin2 = knn.ImportOneSample(filepath2);
             //Console.WriteLine(knn.EuclideanDistance(vin1, vin2)); 
         }

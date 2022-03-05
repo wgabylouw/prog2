@@ -108,6 +108,44 @@ namespace TP01_WineQuality
         }
 
         /*------------------------------------------------------------------------------------------------------------------------------------*/
+        public float Evaluate(string filename_test_samples_csv)
+        {
+            List<Wine> ListeEvaluation = this.ImportAllSamples(filename_test_samples_csv);
+            List<int> Prediction = new List<int>();
+            int[] TableauLabel = new int[] { 3, 6, 9 };
+            List<int> ListeExpert = new List<int>();
+            float bon = 0;
+
+            for (int i = 0; i < ListeEvaluation.Count; i++)
+            {
+                Prediction.Add(Predict(ListeEvaluation[i]));
+                ListeExpert.Add(ListeEvaluation[i].Label);
+
+
+                if (Prediction[i] == ListeExpert[i])
+                {
+                    bon++;
+                }
+            }
+            ConfusionMatrix(Prediction, ListeExpert, TableauLabel);
+            return (bon / Prediction.Count) * 100;
+        }
+
+        public void ConfusionMatrix(List<int> predicted_labels, List<int> expert_labels, int[] labels)
+        {
+            int[,] Tableau = new int[labels.Length, labels.Length];
+
+            for (int i = 0; i < expert_labels.Count; i++)
+            {
+                for (int j = 0; j <labels.Length;j++)
+                if (predicted_labels[i] == labels[j] && expert_labels[i] == labels[j])
+                {
+                        
+                }
+            }
+        }
+
+        /*------------------------------------------------------------------------------------------------------------------------------------*/
 
         /* 3.1 Méthode KNN Predict || Entrée : "Vin Objet" || Sortie: "Résultat Qualité" || Rôle : Appel Méthodes KNN EuclideanDistance, KNN (SelectionSort 
            ou ShellSort) et KNN Vote et donne le résultat de la qualité du vin échantilloné*/
@@ -155,7 +193,14 @@ namespace TP01_WineQuality
                 return 3;
             else if (compteur9 > compteur3 && compteur9 > compteur6)
                 return 9;
+            else if (compteur6 > compteur3 && compteur6 > compteur9)
+                return 6;
+            else if (compteur3 == compteur6)
+                return 3;
+            else if (compteur3 == compteur9)
+                return 3;
             else return 6;
+
         }
 
         /*------------------------------------------------------------------------------------------------------------------------------------*/

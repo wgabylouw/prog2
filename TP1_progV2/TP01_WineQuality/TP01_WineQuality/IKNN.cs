@@ -10,7 +10,7 @@ namespace TP01_WineQuality
     {
         /* main methods */
         void Train(string filename_train_samples_csv, int k = 1, int sort_algorithm = 1);
-        //float Evaluate(string filename_test_samples_csv);
+        float Evaluate(string filename_test_samples_csv);
         int Predict(Wine sample_to_predict);
         ///* utils */
         float EuclideanDistance(Wine first_sample, Wine second_sample);
