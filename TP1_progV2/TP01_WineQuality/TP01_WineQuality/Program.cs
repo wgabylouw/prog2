@@ -40,9 +40,11 @@ namespace TP01_WineQuality
             /* 3. Appel KNN Méthode Predict("Vin Objet")*/
             //Console.WriteLine(knn.Predict(vin1));
 
-            Console.WriteLine(knn.Evaluate(fileTest));
 
+            Console.WriteLine(knn.Evaluate(fileTest));
             Console.ReadLine();
+
+
             //Wine vin2 = knn.ImportOneSample(filepath2);
             //Console.WriteLine(knn.EuclideanDistance(vin1, vin2)); 
         }
