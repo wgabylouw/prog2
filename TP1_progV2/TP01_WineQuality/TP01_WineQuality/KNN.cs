@@ -135,14 +135,7 @@ namespace TP01_WineQuality
         {
             int[,] Tableau = new int[labels.Length, labels.Length];
 
-            for (int i = 0; i < expert_labels.Count; i++)
-            {
-                for (int j = 0; j <labels.Length;j++)
-                if (predicted_labels[i] == labels[j] && expert_labels[i] == labels[j])
-                {
-                        
-                }
-            }
+            
         }
 
         /*------------------------------------------------------------------------------------------------------------------------------------*/
