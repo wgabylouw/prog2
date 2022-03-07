@@ -22,9 +22,9 @@ namespace TP01_WineQuality
                 {
                     case "-e":
                         string filepath2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", args[i + 1]);
-                        knn.Evaluate(filepath2);
                         foreach (var item in knn.Data_train)
                             item.PrintInfo();
+                        knn.Evaluate(filepath2);
                         break;
                     case "-p":
                         string filepath1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "samples", args[i + 1]);
