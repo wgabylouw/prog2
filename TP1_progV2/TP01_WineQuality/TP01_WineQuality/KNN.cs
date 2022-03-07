@@ -30,10 +30,10 @@ namespace TP01_WineQuality
             Sort_Algorithm = sort_algorithm;
 
             /* 2.3 Appel Méthode Wine PrintInfo chaque "Train Objet de la List" */
-            foreach (var item in data_train)
-            {
-                item.PrintInfo();
-            }
+            //foreach (var item in data_train)
+            //{
+            //    item.PrintInfo();
+            //}
         }
 
 
@@ -283,5 +283,9 @@ namespace TP01_WineQuality
                 }
             }
         }
+
+
+        public List<Wine> Data_train { get
+            { return data_train; } }
     }
 }
