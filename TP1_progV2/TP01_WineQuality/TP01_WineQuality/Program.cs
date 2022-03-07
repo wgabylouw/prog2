@@ -15,14 +15,24 @@ namespace TP01_WineQuality
             KNN knn = new KNN();
             int k = 1;
             int sort_algorithm = 1;
-            for (int i=args.Length-1;i>=0;i--)
+            if (args[args.Length - 1] == "-h" || args[args.Length-1] == "--help")
             {
-                //Console.WriteLine(args[i]);
+                Console.Write("utilisation [-e test_file.csv ou -p sample_file.csv] -t train_file.csv -k k_value -s sort_algorithm \n \n" +
+                    "-e (evaluate) : spécifie un fichier .csv constenant une liste de Vin à évaluer \n" +
+                    "-p (predic) : spécifie un fichier .csv contenant un Vin à évaluer \n" +
+                    "-t (train) : spécifie la liste de Vin faite par un expert pour entrainer l'algorithme. \n" +
+                    "-k : spécifie combien de \"proche parent considéré\" valeur de base est 1 \n" +
+                    "-s (sort algorithm) : spécifie quelle alogirithme de trie utiliser : 1 = trie selection, 2 = trie shell. valeur par defaut 1\n" +
+                    "-h ou --help : aficher l'aide.");
+                return;
+            }
+            for (int i=args.Length-2;i>=0;i-=2)
+            {
                 switch (args[i])
                 {
                     case "-e":
                         string filepath2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", args[i + 1]);
-                        foreach (var item in knn.Data_train)
+                        foreach (Wine item in knn.Data_train)
                             item.PrintInfo();
                         knn.Evaluate(filepath2);
                         break;
@@ -41,10 +51,8 @@ namespace TP01_WineQuality
                     case "-s":
                         sort_algorithm = Convert.ToInt32(args[i + 1]);
                         break;
-                    case "-h":
-
-                        break;
                     default:
+                        Console.WriteLine("test");
                         break;
                 }
             }
@@ -77,7 +85,6 @@ namespace TP01_WineQuality
 
 
             //Console.WriteLine(knn.Evaluate(filepath2));
-            Console.ReadLine();
 
 
             //Wine vin2 = knn.ImportOneSample(filepath2);
