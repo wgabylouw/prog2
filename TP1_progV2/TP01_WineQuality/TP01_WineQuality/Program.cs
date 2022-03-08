@@ -19,7 +19,7 @@ namespace TP01_WineQuality
             }
             /*Objet knn (Class KNN)*/
             KNN knn = new KNN();
-            int k = 1;
+            int k =1;
             bool afficherInfo = false;
             int sort_algorithm = 1;
 
@@ -31,7 +31,7 @@ namespace TP01_WineQuality
             }
 
 
-            // Vérifie si le dernier argument est -h ou --help et affiche de l'aide au besoin.
+            // Vérifie si le dernier argument est -h ou --help et affiche de l'aide au besoin + arrête le programme.
             if (args[args.Length - 1] == "-h" || args[args.Length-1] == "--help")
             {
                 AfficherAide();
@@ -39,7 +39,7 @@ namespace TP01_WineQuality
             }
 
 
-
+            // Boucle for qui commence à la fin du Tableau "args" et qui décrémente par bond de 2 jusqu'à 0.
             for (int i=args.Length-2;i>=0;i-=2)
             {
                 // Vérifie les arguments en commençant par la fin du tableau argument.
@@ -72,7 +72,7 @@ namespace TP01_WineQuality
                     case "-t":
                         /*Train List CSV*/
                         string filepath3 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", args[i+1]);
-                        knn.Train(filepath3, k, sort_algorithm);
+                        knn.Train(filepath3,k, sort_algorithm);
                         break;
 
 

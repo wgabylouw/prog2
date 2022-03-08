@@ -19,8 +19,7 @@ namespace TP01_WineQuality
 
 
 
-        /* Méthode KNN Train || Entrées : "Train List CSV", "k", "Choix Méthode Tri" || Sortie : Aucune || Rôle : Appel KNN Méthode ImportAllSamples et 
-           Méthode Wine PrintInfo*/
+        /* Méthode KNN Train || Entrées : "Train List CSV", "k", "Choix Méthode Tri" || Sortie : Aucune || Rôle : Appel KNN Méthode ImportAllSamples */
         public void Train(string filename_train_samples_csv, int k = 1, int sort_algorithm = 1)
         {
             /* Train List Objet = KNN Méthode ImportAllSample("Train List CSV")*/
@@ -30,7 +29,7 @@ namespace TP01_WineQuality
         }
 
 
-        /* Méthode KNN EuclideanDistance || Entrées : "Vin Objet", "Train Objet.1 ligne"  || Sortie : "1 distance Euclidienne Vin-Train" */
+        /* Méthode KNN EuclideanDistance || Entrées : "Vin Objet", "une ligne de Train Object"  || Sortie : "1 distance Euclidienne Vin-Train" */
         public float EuclideanDistance(Wine first_sample, Wine second_sample)
         {
             float distance =0;
@@ -86,7 +85,7 @@ namespace TP01_WineQuality
                 csv.Read();
                 csv.ReadHeader();
 
-                /*Attribution de valeurs aux Vin Objet.attributs*/
+                // Association de valeurs aux attributs de l'objet Vin.
                 csv.Read();
                 data.VolatileAcidity = csv.GetField<float>("volatile acidity");
                 data.CitricAcid = csv.GetField<float>("citric acid");
@@ -98,12 +97,19 @@ namespace TP01_WineQuality
             return data;
         }
 
-
+        // Méthode KNN Evaluate || Entrée : fichier_de_test CSV || Sortie : Float Précision de l'algorithme en % || Rôle : Donner la précision de l'algorithme.
         public float Evaluate(string filename_test_samples_csv)
         {
+            
             List<Wine> ListeEvaluation = this.ImportAllSamples(filename_test_samples_csv);
+
+            // Liste qui contiendra chacune des prédictions de l'algorithme.
             List<int> Prediction = new List<int>();
+
+            // Tableau des valeurs possibles.
             int[] TableauLabel = new int[] { 3, 6, 9 };
+
+            // Liste qui contiendra chacune des prédictions de l'expert.
             List<int> ListeExpert = new List<int>();
             float bon = 0;
 
@@ -118,13 +124,18 @@ namespace TP01_WineQuality
                     bon++;
                 }
             }
+
+            // Appel de la méthode ConfusionMatrix
             ConfusionMatrix(Prediction, ListeExpert, TableauLabel);
             return (bon / Prediction.Count) * 100;
         }
 
 
+        /*Méthode KNN ConfusionMatrix || Entrées : Liste des Qualités prédites, Liste des qualités données par l'expert, Tableau des qualités possibles 
+          || Sortie : Aucune || Rôle : Calcul et affichage de la matrice de confusion */
         public void ConfusionMatrix(List<int> predicted_labels, List<int> expert_labels, int[] labels)
         {
+            /* Construction de la matrice de confusion */
             int[,] Tableau = new int[labels.Length, labels.Length];
 
             for (int i = 0; i < expert_labels.Count; i++)
@@ -140,6 +151,7 @@ namespace TP01_WineQuality
                             Tableau[j, 2]++;    
                     }     
             }
+            // Début de l'affichage de la matrice de confusion.
             Console.Write("Confusion Matrix : \n \n");
             foreach (var item in labels)
                 Console.Write("      " + item);
@@ -147,6 +159,8 @@ namespace TP01_WineQuality
             foreach (var item in labels)
                 Console.Write("________");
 
+
+            // Boucle pour afficher correctement la matrice de confusion à la console.
             for (int i = 0;i < Tableau.GetLength(0); i++)
             {
                 Console.WriteLine();
@@ -171,18 +185,18 @@ namespace TP01_WineQuality
             List<int> listeLabels = new List<int>();
             for (int i=0;i<data_train.Count();i++)
             {
-                /*" 3.2 Distances Euclidiennes Vin-Train = KNN Méthode EuclideanDistance("Vin Objet", "Train List Objet")*/
+                /*"Distances Euclidiennes Vin-Train = KNN Méthode EuclideanDistance("Vin Objet", "Train List Objet")*/
                 listeDistance.Add(EuclideanDistance(sample_to_predict, data_train[i]));
                 listeLabels.Add(data_train[i].Label);
             }
 
-            /* 3.3 Choix et appel de KNN Méthode SelectionSort ou ShellSort("Distances Euclidiennes Vin-Train non triées", "Qualités non triées")*/
+            /* Choix et appel de KNN Méthode SelectionSort ou ShellSort("Distances Euclidiennes Vin-Train non triées", "Qualités non triées")*/
             if (Sort_Algorithm == 1)
                 this.SelectionSort(listeDistance, listeLabels);
             else 
                 this.ShellSort(listeDistance, listeLabels);
             
-            /* 3.4 Appel et retour de KNN Méthode Vote("Qualités triées")*/
+            /* Appel et retour de KNN Méthode Vote("Qualités triées")*/
             return this.Vote(listeLabels);
         }
 
@@ -200,7 +214,6 @@ namespace TP01_WineQuality
                     compteur6++;
                 else compteur9++;
             }
-            // a refaire pour les cas d'exeptions
             if (compteur3 > compteur6 && compteur3 > compteur9)
                 return 3;
             else if (compteur9 > compteur3 && compteur9 > compteur6)
@@ -220,6 +233,7 @@ namespace TP01_WineQuality
            || Rôle : Trier "Distances Euclidiennes Vin-Train" */
         public void ShellSort(List<float> distances, List<int> labels)
         {
+            // Les distances sont triées de la plus petite à la plus grande et les labels sont triés par rapport à la distance qui leur est associée.
             int compteur = distances.Count();
             int n = 0;
             float temp;
@@ -254,6 +268,7 @@ namespace TP01_WineQuality
            || Rôle : Trier "Distances Euclidiennes Vin-Train" */
         public void SelectionSort(List<float> distances, List<int> labels)
         {
+            // Les distances sont triées de la plus petite à la plus grande et les labels sont triés par rapport à la distance qui leur est associée.
             float temp;
             int min;
             int compteur = distances.Count();
@@ -278,6 +293,7 @@ namespace TP01_WineQuality
         }
 
 
+        // Accesseur pour pouvoir utiliser la liste de vins du Train lors de l'affichage dans le Main.
         public List<Wine> Data_train { get
             { return data_train; } }
     }
