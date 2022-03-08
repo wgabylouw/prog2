@@ -11,84 +11,99 @@ namespace TP01_WineQuality
     {
         static void Main(string[] args)
         {
-            /* à compléter */
-            KNN knn = new KNN();
-            int k = 1;
-            int sort_algorithm = 1;
-            if (args[args.Length - 1] == "-h" || args[args.Length-1] == "--help")
+            // Si le programme n'a pas d'argument de spécifié lors de son exécution, on affiche l'aide et on arrête le programme.
+            if (args.Length == 0)
             {
-                Console.Write("utilisation [-e test_file.csv ou -p sample_file.csv] -t train_file.csv -k k_value -s sort_algorithm \n \n" +
-                    "-e (evaluate) : spécifie un fichier .csv constenant une liste de Vin à évaluer \n" +
-                    "-p (predic) : spécifie un fichier .csv contenant un Vin à évaluer \n" +
-                    "-t (train) : spécifie la liste de Vin faite par un expert pour entrainer l'algorithme. \n" +
-                    "-k : spécifie combien de \"proche parent considéré\" valeur de base est 1 \n" +
-                    "-s (sort algorithm) : spécifie quelle alogirithme de trie utiliser : 1 = trie selection, 2 = trie shell. valeur par defaut 1\n" +
-                    "-h ou --help : aficher l'aide.");
+                AfficherAide();
                 return;
             }
+            /*Objet knn (Class KNN)*/
+            KNN knn = new KNN();
+            int k = 1;
+            bool afficherInfo = false;
+            int sort_algorithm = 1;
+
+            // Vérifie si le dernier argument est -i et affiche le(s) info(s).
+            if (args[args.Length - 1] == "-i")
+            {
+                afficherInfo = true;
+                args = args.Where(e => e != "-i").ToArray();
+            }
+
+
+            // Vérifie si le dernier argument est -h ou --help et affiche de l'aide au besoin.
+            if (args[args.Length - 1] == "-h" || args[args.Length-1] == "--help")
+            {
+                AfficherAide();
+                return;
+            }
+
+
+
             for (int i=args.Length-2;i>=0;i-=2)
             {
+                // Vérifie les arguments en commençant par la fin du tableau argument.
                 switch (args[i])
                 {
                     case "-e":
                         string filepath2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", args[i + 1]);
-                        foreach (Wine item in knn.Data_train)
+                        Console.WriteLine();
+                        if (afficherInfo)
+                        {
+                            foreach (Wine item in knn.Data_train)
                             item.PrintInfo();
-                        knn.Evaluate(filepath2);
+                        }
+                        Console.WriteLine("Classification Accuracy -> {0} % \n",knn.Evaluate(filepath2));
                         break;
+
+
                     case "-p":
+                        /*"Vin CSV*/
                         string filepath1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "samples", args[i + 1]);
                         Wine vin1 = knn.ImportOneSample(filepath1);
-                        Console.WriteLine("["+args[i+1] +"] Prediction by model -> "+knn.Predict(vin1) + " | by expert -> " + vin1.Label);
+                        Console.WriteLine();
+                        if (afficherInfo)
+                            vin1.PrintInfo();
+                        Console.WriteLine("\n["+args[i+1] +"] Prediction by model -> "+knn.Predict(vin1) + " | by expert -> " + vin1.Label);
                         break;
+
+
+
                     case "-t":
+                        /*Train List CSV*/
                         string filepath3 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", args[i+1]);
                         knn.Train(filepath3, k, sort_algorithm);
                         break;
+
+
                     case "-k":
                         k = Convert.ToInt32(args[i + 1]);
                         break;
+
+
                     case "-s":
                         sort_algorithm = Convert.ToInt32(args[i + 1]);
                         break;
+
+                        //Si aucun cas ne correspond à l'élément du tableau "args", on affiche l'aide à l'utilisateur pour qu'il puisse utiliser l'application correctement.
                     default:
-                        Console.WriteLine("test");
-                        break;
+                        AfficherAide();
+                        return;
                 }
             }
 
-            /*Objet knn (Class KNN)*/
-
-            /*"Vin CSV*/
-            //string filepath1 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..","samples", "sample_01.csv");
-
-            //string filepath2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "test.csv");
-
-            /*Train List CSV*/
-            //string filepath3 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "train.csv");
-
-            //string filepath2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "samples", "sample_02.csv");
-
-
-
-
-            /* 1. "Vin Objet" = KNN Méthode ImportOneSample("Vin CSV")*/
-            //Wine vin1 = knn.ImportOneSample(filepath1);
-
-
-            /* 2. Appel KNN Méthode Train("Train List CSV", "K", "Choix Méthode Tri")*/
-            //knn.Train(filepath3,10,2);
-
-
-            /* 3. Appel KNN Méthode Predict("Vin Objet")*/
-            //Console.WriteLine(knn.Predict(vin1));
-
-
-            //Console.WriteLine(knn.Evaluate(filepath2));
-
-
-            //Wine vin2 = knn.ImportOneSample(filepath2);
-            //Console.WriteLine(knn.EuclideanDistance(vin1, vin2)); 
+            //Méthode supplémentaire qui permet d'afficher l'aide.
+            void AfficherAide()
+            {
+                
+                Console.Write("Utilisation [-e test_file.csv ou -p sample_file.csv] -t train_file.csv -k k_value -s sort_algorithm . \n \n" +
+                        "-e (Evaluate) : spécifie qu'un fichier .csv contenant une liste de Vins à évaluer \n" +
+                        "-p (Predict) : spécifie qu'un fichier .csv contenant un Vin à évaluer \n" +
+                        "-t (Train) : spécifie la liste de Vins évaluée par un expert pour entrainer l'algorithme. \n" +
+                        "-k : spécifie combien de \"proche(s) parent(s) à considérer\" la valeur de par défaut est 1 \n" +
+                        "-s (sort algorithm) : spécifie quel alogirithme de tri est utilisé : 1 = tri Selection, 2 = tri Shell. la valeur par défaut est 1\n" +
+                        "-h ou --help : aficher l'aide.");
+            }
         }
     }
 }

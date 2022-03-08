@@ -12,7 +12,6 @@ namespace TP01_WineQuality
 {
     internal class Wine : IWine
     {
-        /* à compléter */
         [CsvHelper.Configuration.Attributes.Name("volatile acidity")]
         public float VolatileAcidity { get; set; }
         [CsvHelper.Configuration.Attributes.Name("citric acid")]
@@ -31,7 +30,7 @@ namespace TP01_WineQuality
         }
 
 
-        /* 2.3 Méthod Wine PrintInfor || Entrée : aucune || Sortie : aucune || Rôle : Format d'affichage graphique "Train List Objet"*/
+        /* Méthod Wine PrintInfor || Entrée : aucune || Sortie : aucune || Rôle : Format d'affichage graphique "Train List Objet"*/
         public void PrintInfo()
         {
             Console.WriteLine(string.Format("{0:00.0} | {1:0.00} | {2:0.00} | {3:0.000} | {4:0}",
