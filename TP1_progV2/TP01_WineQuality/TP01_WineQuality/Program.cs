@@ -96,12 +96,13 @@ namespace TP01_WineQuality
             void AfficherAide()
             {
                 
-                Console.Write("Utilisation [-e test_file.csv ou -p sample_file.csv] -t train_file.csv -k k_value -s sort_algorithm . \n \n" +
+                Console.Write("\nUtilisation [-e test_file.csv ou -p sample_file.csv] -t train_file.csv -k k_value -s sort_algorithm . \n \n" +
                         "-e (Evaluate) : spécifie qu'un fichier .csv contenant une liste de Vins à évaluer \n" +
                         "-p (Predict) : spécifie qu'un fichier .csv contenant un Vin à évaluer \n" +
                         "-t (Train) : spécifie la liste de Vins évaluée par un expert pour entrainer l'algorithme. \n" +
                         "-k : spécifie combien de \"proche(s) parent(s) à considérer\" la valeur de par défaut est 1 \n" +
                         "-s (sort algorithm) : spécifie quel alogirithme de tri est utilisé : 1 = tri Selection, 2 = tri Shell. la valeur par défaut est 1\n" +
+                        "-i : spécifie d'afficher le(s) info(s) de(s) vin(s). \n" +
                         "-h ou --help : aficher l'aide.");
             }
         }
