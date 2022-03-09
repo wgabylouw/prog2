@@ -5,6 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
+
+
+// TP1 Frédérik Boutin et Gabriel Létourneau
+
+
+
 namespace TP01_WineQuality
 {
     internal class Program
