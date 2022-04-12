@@ -5,8 +5,100 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TP2_interface_graphique.Views"
         mc:Ignorable="d"
-        Title="Fenetre_Principale" Height="450" Width="800">
-    <Grid>
+        Title="Fenetre principale" Height="450" Width="800">
+
+   
         
-    </Grid>
+   
+
+        <Grid>
+
+        <TabControl>
+            <TabItem Header="Prediction">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Alcool : " HorizontalAlignment="Left" Margin="50,50,0,50" Padding="0,0,0,0" Grid.Column="0" Grid.Row="0"/>
+                    <TextBox HorizontalAlignment="Right"  Margin="0,50,50,50" Padding="150,0,0,0" Grid.Column="0" Grid.Row="0"/>
+
+                    <Label Content="Sulfates : " HorizontalAlignment="Left" Margin="50,50,0,50" Padding="0,0,0,0" Grid.Column="0" Grid.Row="1"/>
+                    <TextBox HorizontalAlignment="Right"  Margin="0,50,50,50" Padding="150,0,0,0" Grid.Column="0" Grid.Row="1"/>
+
+                    <Label Content="Acide Citrique : " HorizontalAlignment="Left" Margin="50,50,0,50" Padding="0,0,0,0" Grid.Column="1" Grid.Row="0"/>
+                    <TextBox HorizontalAlignment="Right"  Margin="0,50,50,50" Padding="150,0,0,0" Grid.Column="1" Grid.Row="0"/>
+
+                    <Label Content="Acidité Volatile : " HorizontalAlignment="Left" Margin="50,50,0,50" Padding="0,0,0,0" Grid.Column="1" Grid.Row="1"/>
+                    <TextBox HorizontalAlignment="Right"  Margin="0,50,50,50" Padding="150,0,0,0" Grid.Column="1" Grid.Row="1"/>
+
+                    <Button Content="Prédiction" Grid.Column="0" Grid.Row="2" Margin="50"/>
+
+                    <Image Width="60" Height="75" Grid.Column="1" Grid.Row="2" />
+                </Grid>
+            </TabItem>
+            
+            
+            <TabItem Header="Performances">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Path :"  Grid.Row="0"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Button Content="Ouvrir" Grid.Column="3" Grid.Row="0" />
+
+                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"/>
+                    
+                    <Label Content="3" Grid.Row="3" HorizontalAlignment="center"/>
+                    <Label Content="6" Grid.Row="4" HorizontalAlignment="center"/>
+                    <Label Content="9" Grid.Row="5" HorizontalAlignment="center"/>
+
+                    <Label Content="3" Grid.Row="2" Grid.Column="1" HorizontalAlignment="center"/>
+                    <Label Content="6" Grid.Row="2" Grid.Column="2" HorizontalAlignment="center"/>
+                    <Label Content="9" Grid.Row="2" Grid.Column="3" HorizontalAlignment="center"/>
+                </Grid>
+                
+            </TabItem>
+            
+            
+            <TabItem Header="Paramètres">
+                
+            </TabItem>
+            <TabItem Header="Historique">
+                
+            </TabItem>
+            <TabItem Header="MAJ Utilisateur">
+                
+            </TabItem>
+
+
+
+        </TabControl>
+            
+        
+        </Grid>
+
+
 </Window>

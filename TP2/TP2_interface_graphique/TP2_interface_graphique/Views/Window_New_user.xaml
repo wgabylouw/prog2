@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TP2_interface_graphique.Views"
         mc:Ignorable="d"
-        Title="Window_New_user" Height="450" Width="800">
+        Title="Nouvel utilisateur" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -40,7 +40,7 @@
 
         <DatePicker Margin="120,20,120,20" Grid.Column="1" Grid.Row="5"/>
 
-        <Button Content="Retour" Margin="60,20,60,20" Grid.Column="0" Grid.Row="6"/>
+        <Button Content="Retour" Margin="60,20,60,20" Grid.Column="0" Grid.Row="6" Click="Button_Click"/>
         <Button Content="Créer" Margin="60,20,60,20" Grid.Column="1" Grid.Row="6"/>
 
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TP2_interface_graphique"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="800">
+        Title="Accueil" Height="400" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -22,11 +22,11 @@
 
         <ComboBox Grid.Row="0" Grid.Column="1" Margin="90,40,90,40" />
 
-        <Button Content="Créer" Margin="90,40,90,40" Grid.Row="1" Grid.Column="0" />
+        <Button Content="Créer" Margin="90,40,90,40" Grid.Row="1" Grid.Column="0" Click="Button_Click_1" />
 
-        <Button Content="Se connecter" Margin="90,40,90,40" Grid.Row="1" Grid.Column="1" />
+        <Button Content="Se connecter" Margin="90,40,90,40" Grid.Row="1" Grid.Column="1" Click="Button_Click" />
 
-        <Button Content="Quitter" Margin="150,40,150,40" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  />
+        <Button Content="Quitter" Margin="150,40,150,40" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Click="Button_Click_2"  />
 
     </Grid>
 
