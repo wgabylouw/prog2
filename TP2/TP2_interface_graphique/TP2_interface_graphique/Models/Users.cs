@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
+using System.Runtime.Serialization;
 
 namespace TP2_interface_graphique.Models
 {
@@ -101,8 +101,37 @@ namespace TP2_interface_graphique.Models
                 }
             }
         }
-
-
+        //ajouter [IgnoreDataMember] au valeur qu'on veut pas dans la BD
+        [IgnoreDataMember]
+        public bool Homme
+        {
+            get
+            {
+                return string.Equals(Sex, "Homme");
+            }
+            set
+            {
+                if (value)
+                    Sex = "Homme";
+                else
+                    Sex = "Femme";
+            }
+        }
+        [IgnoreDataMember]
+        public bool Femme
+        {
+            get
+            {
+                return string.Equals(Sex, "Femme");
+            }
+            set
+            {
+                if (value)
+                    Sex = "Femme";
+                else
+                    Sex = "Homme";
+            }
+        }
         private string _sex;
         public string Sex
         {

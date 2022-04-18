@@ -35,10 +35,10 @@
 
         <ComboBox SelectedItem="{Binding Users.City, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Cities}" Grid.Column="1" Grid.Row="2"/>
 
-        <RadioButton Content="Homme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,100,0" Grid.Column="1" Grid.Row="4"/>
-        <RadioButton Content="Femme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="100,0,0,0" Grid.Column="1" Grid.Row="4"/>
+        <RadioButton IsChecked="{Binding Users.Homme, UpdateSourceTrigger=PropertyChanged}" Content="Homme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,100,0" Grid.Column="1" Grid.Row="4"/>
+        <RadioButton IsChecked="{Binding Users.Femme, UpdateSourceTrigger=PropertyChanged}" Content="Femme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="100,0,0,0" Grid.Column="1" Grid.Row="4"/>
 
-        <DatePicker SelectedDate="{Binding Users.Date, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" Margin="120,20,120,20" Grid.Column="1" Grid.Row="5"/>
+        <DatePicker SelectedDate="{Binding Users.Birthday, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" Margin="120,20,120,20" Grid.Column="1" Grid.Row="5"/>
 
         <Button Content="Retour" Margin="60,20,60,20" Grid.Column="0" Grid.Row="6" Click="Button_Click"/>
         <Button Command="{Binding NewUserCommand}" Content="Créer" Margin="60,20,60,20" Grid.Column="1" Grid.Row="6"/>

@@ -35,7 +35,6 @@ namespace TP2_interface_graphique.ViewModels
 
             );
     }
-        public ICommand Test { get; set; }
         public ICommand NewUserCommand { get; private set; }
     }
 }
