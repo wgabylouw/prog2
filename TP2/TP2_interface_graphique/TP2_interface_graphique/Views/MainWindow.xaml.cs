@@ -38,7 +38,7 @@ namespace TP2_interface_graphique
             Views.Window_New_user Fenetre = new Views.Window_New_user();
             Fenetre.Show();
 
-            //this.Close();
+            this.Close();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

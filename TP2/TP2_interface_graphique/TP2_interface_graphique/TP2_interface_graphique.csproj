@@ -201,6 +201,7 @@
     <Compile Include="Models\Predictions.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="TP2Context.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\Window_New_user_ViewModel.cs" />
     <Compile Include="Views\Fenetre_Principale.xaml.cs">

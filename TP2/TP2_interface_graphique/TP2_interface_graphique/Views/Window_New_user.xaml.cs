@@ -33,5 +33,13 @@ namespace TP2_interface_graphique.Views
 
             this.Close();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MainWindow Fenetre = new MainWindow();
+            Fenetre.Show();
+
+            this.Close();
+        }
     }
 }

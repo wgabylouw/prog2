@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TP2_interface_graphique.Models
 {
@@ -101,8 +101,8 @@ namespace TP2_interface_graphique.Models
                 }
             }
         }
-        //ajouter [IgnoreDataMember] au valeur qu'on veut pas dans la BD
-        [IgnoreDataMember]
+        //Ajouter [NotMapped] au valeur qu'on ne veut pas dans la BD
+        [NotMapped]
         public bool Homme
         {
             get
@@ -117,7 +117,7 @@ namespace TP2_interface_graphique.Models
                     Sex = "Femme";
             }
         }
-        [IgnoreDataMember]
+        [NotMapped]
         public bool Femme
         {
             get
@@ -200,6 +200,7 @@ namespace TP2_interface_graphique.Models
             TP2Context tp2Context = new TP2Context();
             tp2Context.Users.Add(users);
             tp2Context.SaveChanges();
+
         }
 
 
@@ -222,10 +223,12 @@ namespace TP2_interface_graphique.Models
 
 
         /*Affichage de plusieurs utilisateurs dans la BD :*/
-        public static void ShowUsers()
+        public static List<Users> ShowUsers()
         {
             TP2Context tp2Context = new TP2Context();
             List<Users> userss = tp2Context.Users.ToList();
+
+            return userss;
 
             //foreach (Users users in userss)
             //{
