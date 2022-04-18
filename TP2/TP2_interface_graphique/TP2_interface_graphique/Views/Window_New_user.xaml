@@ -29,19 +29,19 @@
         <Label Content="Sexe :" Grid.Column="0" Grid.Row="4"/>
         <Label Content="Date de naissance :" Grid.Column="0" Grid.Row="5"/>
 
-        <TextBox Text="" Grid.Column="1" Grid.Row="0"/>
-        <TextBox Text="" Grid.Column="1" Grid.Row="1"/>
-        <TextBox Text="" Grid.Column="1" Grid.Row="3"/>
+        <TextBox  Text="{Binding Users.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0"/>
+        <TextBox Text="{Binding Users.FirstName, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1"/>
+        <TextBox Text="{Binding Users.Email, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3"/>
 
-        <ComboBox Grid.Column="1" Grid.Row="2"/>
+        <ComboBox SelectedItem="{Binding Users.City, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Cities}" Grid.Column="1" Grid.Row="2"/>
 
         <RadioButton Content="Homme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,100,0" Grid.Column="1" Grid.Row="4"/>
         <RadioButton Content="Femme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="100,0,0,0" Grid.Column="1" Grid.Row="4"/>
 
-        <DatePicker Margin="120,20,120,20" Grid.Column="1" Grid.Row="5"/>
+        <DatePicker SelectedDate="{Binding Users.Date, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" Margin="120,20,120,20" Grid.Column="1" Grid.Row="5"/>
 
         <Button Content="Retour" Margin="60,20,60,20" Grid.Column="0" Grid.Row="6" Click="Button_Click"/>
-        <Button Content="Créer" Margin="60,20,60,20" Grid.Column="1" Grid.Row="6"/>
+        <Button Command="{Binding NewUserCommand}" Content="Créer" Margin="60,20,60,20" Grid.Column="1" Grid.Row="6"/>
 
 
 
