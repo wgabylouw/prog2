@@ -10,6 +10,12 @@ using System.Windows.Input;
 
 namespace TP2_interface_graphique.ViewModels
 {
+    public enum OptionSex
+    {
+        Homme,
+        Femme
+    }
+
     class Window_New_user_ViewModel
     {
         public Models.Users Users { get; set; }
@@ -27,6 +33,7 @@ namespace TP2_interface_graphique.ViewModels
                 "Rimouski"
             };
 
+            Users.Sex = OptionSex.Homme;
 
             NewUserCommand = new RelayCommand(
 

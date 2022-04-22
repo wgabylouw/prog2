@@ -195,7 +195,12 @@
     <Compile Include="Migrations\20220413165559_Depart.designer.cs">
       <DependentUpon>20220413165559_Depart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20220422001406_Enum.cs" />
+    <Compile Include="Migrations\20220422001406_Enum.designer.cs">
+      <DependentUpon>20220422001406_Enum.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\TP2ContextModelSnapshot.cs" />
+    <Compile Include="Models\EnumToBooleanConverter.cs" />
     <Compile Include="Models\Model_MainWindow.cs" />
     <Compile Include="Models\Parameters.cs" />
     <Compile Include="Models\Predictions.cs" />

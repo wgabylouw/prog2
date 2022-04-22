@@ -3,9 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TP2_interface_graphique.Views"
+        xmlns:local="clr-namespace:TP2_interface_graphique.ViewModels" xmlns:models="clr-namespace:TP2_interface_graphique.Models" 
         mc:Ignorable="d"
         Title="Nouvel utilisateur" Height="450" Width="800">
+    <!--d:DataContext="{d:DesignInstance Type=models:Users}"-->
+    <Window.Resources>
+        <models:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -35,8 +39,8 @@
 
         <ComboBox SelectedItem="{Binding Users.City, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Cities}" Grid.Column="1" Grid.Row="2"/>
 
-        <RadioButton IsChecked="{Binding Users.Homme, UpdateSourceTrigger=PropertyChanged}" Content="Homme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,100,0" Grid.Column="1" Grid.Row="4"/>
-        <RadioButton IsChecked="{Binding Users.Femme, UpdateSourceTrigger=PropertyChanged}" Content="Femme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="100,0,0,0" Grid.Column="1" Grid.Row="4"/>
+        <RadioButton IsChecked="{Binding Users.Sex, Mode=TwoWay, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:OptionSex.Homme}}" Content="Homme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,100,0" Grid.Column="1" Grid.Row="4"/>
+        <RadioButton IsChecked="{Binding Users.Sex, Mode=TwoWay, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:OptionSex.Femme}}" Content="Femme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="100,0,0,0" Grid.Column="1" Grid.Row="4"/>
 
         <DatePicker SelectedDate="{Binding Users.Birthday, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" Margin="120,20,120,20" Grid.Column="1" Grid.Row="5"/>
 

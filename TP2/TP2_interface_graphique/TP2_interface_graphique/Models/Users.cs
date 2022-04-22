@@ -101,54 +101,69 @@ namespace TP2_interface_graphique.Models
                 }
             }
         }
+
+
         //Ajouter [NotMapped] au valeur qu'on ne veut pas dans la BD
-        [NotMapped]
-        public bool Homme
-        {
-            get
-            {
-                return string.Equals(Sex, "Homme");
-            }
-            set
-            {
-                if (value)
-                    Sex = "Homme";
-                else
-                    Sex = "Femme";
-            }
-        }
-        [NotMapped]
-        public bool Femme
-        {
-            get
-            {
-                return string.Equals(Sex, "Femme");
-            }
-            set
-            {
-                if (value)
-                    Sex = "Femme";
-                else
-                    Sex = "Homme";
-            }
-        }
-        private string _sex;
-        public string Sex
+        //[NotMapped]
+        //public bool Homme
+        //{
+        //    get
+        //    {
+        //        return string.Equals(Sex, "Homme");
+        //    }
+        //    set
+        //    {
+        //        if (value)
+        //            Sex = "Homme";
+        //        else
+        //            Sex = "Femme";
+        //    }
+        //}
+        //[NotMapped]
+        //public bool Femme
+        //{
+        //    get
+        //    {
+        //        return string.Equals(Sex, "Femme");
+        //    }
+        //    set
+        //    {
+        //        if (value)
+        //            Sex = "Femme";
+        //        else
+        //            Sex = "Homme";
+        //    }
+        //}
+        //private string _sex;
+        //public string Sex
+        //{
+        //    get { return this._sex; }
+
+        //    set
+        //    {
+        //        if (this._sex != value)
+        //        {
+        //            this._sex = value;
+
+        //            this.SetIsValid();
+        //            this.OnPropertyChanged();
+        //        }
+        //    }
+        //}
+
+        private ViewModels.OptionSex _sex;
+        public ViewModels.OptionSex Sex
         {
             get { return this._sex; }
 
             set
             {
-                if (this._sex != value)
-                {
-                    this._sex = value;
+                this._sex = value;
 
-                    this.SetIsValid();
-                    this.OnPropertyChanged();
-                }
+                this.SetIsValid();
+                this.OnPropertyChanged();
             }
         }
-
 
         private string _birthday;
         public string Birthday
@@ -184,7 +199,7 @@ namespace TP2_interface_graphique.Models
         private void SetIsValid()
         {
             this._isValid = !string.IsNullOrEmpty(this.Name) && !string.IsNullOrEmpty(this.FirstName) && !string.IsNullOrEmpty(this.City)
-                            && !string.IsNullOrEmpty(this.Email) && !string.IsNullOrEmpty(this.Sex) && !string.IsNullOrEmpty(this.Birthday);
+                            && !string.IsNullOrEmpty(this.Email) && !string.IsNullOrEmpty(this.Birthday);
         }
 
 
@@ -238,7 +253,7 @@ namespace TP2_interface_graphique.Models
 
 
         /*Modifier les paramètres d'utilisateur dans la BD :*/
-        public static void UpdateUser(int usersId, string _name, string _firstName, string _city, string _email, string _sex, string _birthday)
+        public static void UpdateUser(int usersId, string _name, string _firstName, string _city, string _email, ViewModels.OptionSex _sex, string _birthday)
         {
             TP2Context tp2Context = new TP2Context();
             Users users = tp2Context.Users.Find(usersId);
