@@ -23,6 +23,7 @@ namespace TP2_interface_graphique
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ViewModels.MainWindowViewModel();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
