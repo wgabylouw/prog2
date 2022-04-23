@@ -201,6 +201,12 @@ namespace TP2_interface_graphique.Models
             this._isValid = !string.IsNullOrEmpty(this.Name) && !string.IsNullOrEmpty(this.FirstName) && !string.IsNullOrEmpty(this.City)
                             && !string.IsNullOrEmpty(this.Email) && !string.IsNullOrEmpty(this.Birthday);
         }
+        public bool TestIsValid()
+        {
+
+            return (!string.IsNullOrEmpty(this.Name) && !string.IsNullOrEmpty(this.FirstName) && !string.IsNullOrEmpty(this.City)
+                            && !string.IsNullOrEmpty(this.Email) && !string.IsNullOrEmpty(this.Birthday));
+        }
 
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = "")
@@ -229,10 +235,11 @@ namespace TP2_interface_graphique.Models
 
 
         /*Affichage d'un utilisateur dans la BD :*/
-        public static void ShowUser(int usersId)
+        public static Users ShowUser(int usersId)
         {
             TP2Context tp2Context = new TP2Context();
             Users users = tp2Context.Users.Find(usersId);
+            return users;
             //Console.WriteLine($"{users.UsersId} - {users.Name}");
         }
 

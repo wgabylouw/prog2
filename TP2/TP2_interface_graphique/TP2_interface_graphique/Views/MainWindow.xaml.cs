@@ -26,25 +26,20 @@ namespace TP2_interface_graphique
             DataContext = new ViewModels.MainWindowViewModel();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Views.Fenetre_Principale Fenetre = new Views.Fenetre_Principale();
-            Fenetre.Show();
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Views.Fenetre_Principale Fenetre = new Views.Fenetre_Principale();
+        //    Fenetre.Show();
 
-            //this.Close();
-        }
+        //    this.Close();
+        //}
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            Views.Window_New_user Fenetre = new Views.Window_New_user();
-            Fenetre.Show();
+        //private void Button_Click_1(object sender, RoutedEventArgs e)
+        //{
+        //    Views.Window_New_user Fenetre = new Views.Window_New_user();
+        //    Fenetre.Show();
 
-            this.Close();
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+        //    this.Close();
+        //}
     }
 }

@@ -22,6 +22,7 @@ namespace TP2_interface_graphique.Views
         public Fenetre_Principale()
         {
             InitializeComponent();
+            DataContext = new ViewModels.FenetrePrincipaleViewModel();
         }
     }
 }
