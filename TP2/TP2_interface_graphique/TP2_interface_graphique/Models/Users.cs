@@ -260,17 +260,17 @@ namespace TP2_interface_graphique.Models
 
 
         /*Modifier les paramètres d'utilisateur dans la BD :*/
-        public static void UpdateUser(int usersId, string _name, string _firstName, string _city, string _email, ViewModels.OptionSex _sex, string _birthday)
+        public static void UpdateUser(Users _user) //int usersId, string _name, string _firstName, string _city, string _email, ViewModels.OptionSex _sex, string _birthday
         {
             TP2Context tp2Context = new TP2Context();
-            Users users = tp2Context.Users.Find(usersId);
+            Users User = tp2Context.Users.Find(_user.UsersId);
             
-            users.Name = _name;
-            users.FirstName = _firstName;
-            users.City = _city;
-            users.Email = _email;
-            users.Sex = _sex;
-            users.Birthday = _birthday;
+            User.Name = _user.Name;
+            User.FirstName = _user.FirstName;
+            User.City = _user.City;
+            User.Email = _user.Email;
+            User.Sex = _user.Sex;
+            User.Birthday = _user.Birthday;
 
             tp2Context.SaveChanges();
         }

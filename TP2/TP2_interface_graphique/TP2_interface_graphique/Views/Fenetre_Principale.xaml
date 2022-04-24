@@ -3,15 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TP2_interface_graphique.Views"
+        xmlns:local="clr-namespace:TP2_interface_graphique.ViewModels" xmlns:models="clr-namespace:TP2_interface_graphique.Models"
         mc:Ignorable="d"
         Title="Fenetre principale" Height="450" Width="800">
+    <Window.Resources>
+        <models:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+    </Window.Resources>
 
-   
-        
-   
 
-        <Grid>
+
+
+    <Grid>
 
         <TabControl>
             <TabItem Header="Prediction">
@@ -140,19 +142,18 @@
                     <Label Content="Sexe :" Grid.Column="0" Grid.Row="4"/>
                     <Label Content="Date de naissance :" Grid.Column="0" Grid.Row="5"/>
 
-                    <TextBox Text="" Grid.Column="1" Grid.Row="0"/>
-                    <TextBox Text="" Grid.Column="1" Grid.Row="1"/>
-                    <TextBox Text="" Grid.Column="1" Grid.Row="3"/>
+                    <TextBox Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0"/>
+                    <TextBox Text="{Binding User.FirstName, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1"/>
+                    <TextBox Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3"/>
 
-                    <ComboBox Grid.Column="1" Grid.Row="2"/>
+                    <ComboBox SelectedItem="{Binding User.City }" ItemsSource="{Binding Cities}" Grid.Column="1" Grid.Row="2"/>
 
-                    <RadioButton Content="Homme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,100,0" Grid.Column="1" Grid.Row="4"/>
-                    <RadioButton Content="Femme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="100,0,0,0" Grid.Column="1" Grid.Row="4"/>
+                    <RadioButton IsChecked="{Binding User.Sex, Mode=TwoWay, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:OptionSex.Homme}}" Content="Homme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,100,0" Grid.Column="1" Grid.Row="4"/>
+                    <RadioButton IsChecked="{Binding User.Sex, Mode=TwoWay, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:OptionSex.Femme}}" Content="Femme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="100,0,0,0" Grid.Column="1" Grid.Row="4"/>
 
-                    <DatePicker Margin="120,20,120,20" Grid.Column="1" Grid.Row="5"/>
+                    <DatePicker SelectedDate="{Binding User.Birthday, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" Margin="120,10,120,10" Grid.Column="1" Grid.Row="5"/>
 
-                    <Button Content="Retour" Margin="60,20,60,20" Grid.Column="0" Grid.Row="6"/>
-                    <Button Content="Créer" Margin="60,20,60,20" Grid.Column="1" Grid.Row="6"/>
+                    <Button Command="{Binding MAJUserCommand}" Content="Modifier" Margin="60,20,60,20" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"/>
                 </Grid>
             </TabItem>
         </TabControl>
