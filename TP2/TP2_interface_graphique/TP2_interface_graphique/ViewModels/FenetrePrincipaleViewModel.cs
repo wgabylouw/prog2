@@ -8,21 +8,33 @@ using System.Windows;
 using System.Windows.Input;
 using KnnLibrary;
 using CsvHelper;
+using Microsoft.Win32;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+
 namespace TP2_interface_graphique.ViewModels
 {
     class FenetrePrincipaleViewModel
     {
         public ICommand MAJUserCommand { get; set; }
+        public ICommand OpenFileCommand { get; set; }
+        public ICommand PredictionCommand { get; set; }
         public Models.Users User { get; set; }
         public ObservableCollection<string> Cities { get; set; }
+        public ObservableCollection<int> Ks { get; set; }
 
+        public Models.Parameters Parameters { get; set; }
+        public Models.Predictions Predictions { get; set; }
 
+        public ObservableCollection<string> Algorithms { get; set; }
+        public string ImagePath { get; set; }
 
 
         public FenetrePrincipaleViewModel()
         {
-            User = (Models.Users)Application.Current.Properties["test"];
-
+            ImagePath = "/Views/Image/first.png";
+            Ks = new ObservableCollection<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            Algorithms = new ObservableCollection<string>() { "selection", "shell" };
             this.Cities = new ObservableCollection<string>()
             {
                 "Québec",
@@ -30,17 +42,89 @@ namespace TP2_interface_graphique.ViewModels
                 "Rimouski"
             };
 
+            User = (Models.Users)Application.Current.Properties["test"];
+
+            Parameters = new Models.Parameters();
+            Parameters.K = 1;
+            Predictions = new Models.Predictions();
+
+            //OpenFileDialog openFileDialog = new OpenFileDialog();
+            //if (openFileDialog.ShowDialog() == true)
+            //    txtEditor.Text = openFileDialog.FileName;
+
+            OpenFileCommand = new RelayCommand(
+                o => true,
+                o =>
+                {
+                    OpenFileDialog openFileDialog = new OpenFileDialog();
+                    if (openFileDialog.ShowDialog() == true)
+                        Parameters.TrainPath = openFileDialog.FileName;
+                });
+
+
             MAJUserCommand = new RelayCommand(
                 o => User.TestIsValid(),
-                o => { 
+                o => {
                     Models.Users.UpdateUser(User);
                     MessageBox.Show($"Mise à jour du compte de {User.FirstName} {User.Name} réussit avec succès",
                                     "",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Information);
                 });
+            PredictionCommand = new RelayCommand(
+                o => Parameters.IsValid && Predictions.IsValid,
+                o => CalculerQualite()
+                ) ;
 
 
+        }
+        private void CalculerQualite()
+        {
+            Predictions.ParametersId = Models.Parameters.AddParameter(new Models.Parameters()
+            {
+                K = Parameters.K,
+                TrainPath = Parameters.TrainPath,
+                Algorithm = Parameters.Algorithm,
+            });
+
+            KNN knn = new KNN();
+            Wine wine = new Wine()
+            {
+                Alcohol = Predictions.Alcohol,
+                Sulphates = Predictions.Sulphates,
+                CitricAcid = Predictions.CitricAcid,
+                VolatileAcidity = Predictions.VolatileAcidity
+            };
+            knn.Train(Parameters.TrainPath,Parameters.K,Parameters.Algorithm);
+            int result = knn.Predict(wine);
+            Predictions.Quality = result;
+            Predictions.UsersId = User.UsersId;
+
+            Models.Predictions.AddPrediction(new Models.Predictions()
+            {
+                UsersId = Predictions.UsersId,
+                ParametersId = Predictions.ParametersId,
+                Sulphates = Predictions.Sulphates,
+                CitricAcid = Predictions.CitricAcid,
+                VolatileAcidity = Predictions.VolatileAcidity,
+                Alcohol = Predictions.Alcohol,
+                Quality = Predictions.Quality
+
+            });
+            //Predictions.ParametersId = Parameters.ParametersId;
+
+
+
+
+            if (result == 3)
+                ImagePath = "/Views/Image/third.png";
+            else if (result == 6)
+                ImagePath = "/Views/Image/second.png";
+            else if (result == 9)
+                ImagePath = "/Views/Image/first.png";
+            else MessageBox.Show("Erreur !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            //MessageBox.Show(knn.Predict(wine).ToString());
         }
     }
 }

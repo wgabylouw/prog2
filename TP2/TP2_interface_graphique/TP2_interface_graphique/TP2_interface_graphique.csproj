@@ -199,12 +199,16 @@
     <Compile Include="Migrations\20220422001406_Enum.designer.cs">
       <DependentUpon>20220422001406_Enum.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20220424200654_Sort-algoritm.cs" />
+    <Compile Include="Migrations\20220424200654_Sort-algoritm.designer.cs">
+      <DependentUpon>20220424200654_Sort-algoritm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\TP2ContextModelSnapshot.cs" />
     <Compile Include="Models\EnumToBooleanConverter.cs" />
-    <Compile Include="Models\Model_MainWindow.cs" />
     <Compile Include="Models\Parameters.cs" />
     <Compile Include="Models\Predictions.cs" />
     <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\VirguleConverter.cs" />
     <Compile Include="TP2Context.cs" />
     <Compile Include="ViewModels\FenetrePrincipaleViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -264,7 +268,21 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Views\Image\first.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Image\second.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\Image\third.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
