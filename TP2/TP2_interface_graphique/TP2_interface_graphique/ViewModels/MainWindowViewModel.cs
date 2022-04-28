@@ -11,9 +11,9 @@ namespace TP2_interface_graphique.ViewModels
 {
     class MainWindowViewModel
     {
-        public ICommand SeConnecterCommand { get; set; }
-        public ICommand CreerCommand { get; set; }
-        public ICommand QuitterCommand { get; set; }
+        public ICommand SeConnecterCommand { get; private set; }
+        public ICommand CreerCommand { get; private set; }
+        public ICommand QuitterCommand { get; private set; }
         public ObservableCollection<Models.Users> CollectionUsers { get; set; }
         public Models.Users User { get; set; }
 

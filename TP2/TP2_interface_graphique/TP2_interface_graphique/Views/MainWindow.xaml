@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TP2_interface_graphique"
         mc:Ignorable="d"
+        FontSize="20"
+        
         Title="Accueil" Height="400" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>

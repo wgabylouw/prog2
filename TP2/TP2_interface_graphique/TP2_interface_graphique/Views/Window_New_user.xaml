@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TP2_interface_graphique.ViewModels" xmlns:models="clr-namespace:TP2_interface_graphique.Models" 
         mc:Ignorable="d"
+        FontSize="20"
         Title="Nouvel utilisateur" Height="450" Width="800">
     <!--d:DataContext="{d:DesignInstance Type=models:Users}"-->
     <Window.Resources>
@@ -26,26 +27,26 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Label Content="Nom :" Grid.Column="0" Grid.Row="0"/>
-        <Label Content="Prénom :" Grid.Column="0" Grid.Row="1"/>
-        <Label Content="Ville :" Grid.Column="0" Grid.Row="2"/>
-        <Label Content="Adresse courriel :" Grid.Column="0" Grid.Row="3"/>
-        <Label Content="Sexe :" Grid.Column="0" Grid.Row="4"/>
-        <Label Content="Date de naissance :" Grid.Column="0" Grid.Row="5"/>
+        <Label Content="Nom :" Grid.Column="0" Grid.Row="0" Margin="12"/>
+        <Label Content="Prénom :" Grid.Column="0" Grid.Row="1" Margin="12"/>
+        <Label Content="Ville :" Grid.Column="0" Grid.Row="2" Margin="12"/>
+        <Label Content="Adresse courriel :" Grid.Column="0" Grid.Row="3" Margin="12"/>
+        <Label Content="Sexe :" Grid.Column="0" Grid.Row="4" Margin="12"/>
+        <Label Content="Date de naissance :" Grid.Column="0" Grid.Row="5" Margin="12"/>
 
-        <TextBox  Text="{Binding Users.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0"/>
-        <TextBox Text="{Binding Users.FirstName, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1"/>
-        <TextBox Text="{Binding Users.Email, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3"/>
+        <TextBox  Text="{Binding Users.Name, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="0" Margin="12"/>
+        <TextBox Text="{Binding Users.FirstName, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="1" Margin="12"/>
+        <TextBox Text="{Binding Users.Email, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="3" Margin="12" />
 
-        <ComboBox SelectedItem="{Binding Users.City, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Cities}" Grid.Column="1" Grid.Row="2"/>
+        <ComboBox SelectedItem="{Binding Users.City, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Cities}" Grid.Column="1" Grid.Row="2" Margin="12"/>
 
         <RadioButton IsChecked="{Binding Users.Sex, Mode=TwoWay, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:OptionSex.Homme}}" Content="Homme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,100,0" Grid.Column="1" Grid.Row="4"/>
         <RadioButton IsChecked="{Binding Users.Sex, Mode=TwoWay, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static local:OptionSex.Femme}}" Content="Femme" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="100,0,0,0" Grid.Column="1" Grid.Row="4"/>
 
-        <DatePicker SelectedDate="{Binding Users.Birthday, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" Margin="120,20,120,20" Grid.Column="1" Grid.Row="5"/>
+        <DatePicker SelectedDate="{Binding Users.Birthday, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" Margin="80,10,80,10" Grid.Column="1" Grid.Row="5"/>
 
-        <Button Command="{Binding RetourCommand}" Content="Retour" Margin="60,20,60,20" Grid.Column="0" Grid.Row="6"/>
-        <Button Command="{Binding NewUserCommand}" Content="Créer" Margin="60,20,60,20" Grid.Column="1" Grid.Row="6"/>
+        <Button Command="{Binding RetourCommand}" Content="Retour" Margin="60,10,60,10" Grid.Column="0" Grid.Row="6"/>
+        <Button Command="{Binding NewUserCommand}" Content="Créer" Margin="60,10,60,10" Grid.Column="1" Grid.Row="6"/>
 
 
 

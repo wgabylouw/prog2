@@ -203,8 +203,13 @@
     <Compile Include="Migrations\20220424200654_Sort-algoritm.designer.cs">
       <DependentUpon>20220424200654_Sort-algoritm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20220428231125_AjoutDateDansPredictions.cs" />
+    <Compile Include="Migrations\20220428231125_AjoutDateDansPredictions.designer.cs">
+      <DependentUpon>20220428231125_AjoutDateDansPredictions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\TP2ContextModelSnapshot.cs" />
     <Compile Include="Models\EnumToBooleanConverter.cs" />
+    <Compile Include="Models\LigneMatriceConfusion.cs" />
     <Compile Include="Models\Parameters.cs" />
     <Compile Include="Models\Predictions.cs" />
     <Compile Include="Models\Users.cs" />

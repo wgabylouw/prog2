@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace TP2_interface_graphique.Models
 {
@@ -14,22 +15,7 @@ namespace TP2_interface_graphique.Models
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-
-        //private int _usersId;
-        public int UsersId { get; set; }
-        //{
-        //    get { return this._usersId; }
-
-        //    set 
-        //    {
-        //        if (this._usersId != value)
-        //        {
-        //            this._usersId = value;
-        //            this.OnPropertyChanged();
-        //        }
-        //    }
-        //}
-       
+        public int UsersId { get; set; }       
 
         private string _name;
         public string Name
@@ -47,8 +33,6 @@ namespace TP2_interface_graphique.Models
                 }
             }
         }
-
-
         private string _firstName;
         public string FirstName
         {
@@ -65,8 +49,6 @@ namespace TP2_interface_graphique.Models
                 }
             }
         }
-
-
         private string _city;
         public string City
         {
@@ -83,8 +65,6 @@ namespace TP2_interface_graphique.Models
                 }
             }
         }
-
-
         private string _email;
         public string Email 
         {
@@ -105,51 +85,6 @@ namespace TP2_interface_graphique.Models
 
         //Ajouter [NotMapped] au valeur qu'on ne veut pas dans la BD
         //[NotMapped]
-        //public bool Homme
-        //{
-        //    get
-        //    {
-        //        return string.Equals(Sex, "Homme");
-        //    }
-        //    set
-        //    {
-        //        if (value)
-        //            Sex = "Homme";
-        //        else
-        //            Sex = "Femme";
-        //    }
-        //}
-        //[NotMapped]
-        //public bool Femme
-        //{
-        //    get
-        //    {
-        //        return string.Equals(Sex, "Femme");
-        //    }
-        //    set
-        //    {
-        //        if (value)
-        //            Sex = "Femme";
-        //        else
-        //            Sex = "Homme";
-        //    }
-        //}
-        //private string _sex;
-        //public string Sex
-        //{
-        //    get { return this._sex; }
-
-        //    set
-        //    {
-        //        if (this._sex != value)
-        //        {
-        //            this._sex = value;
-
-        //            this.SetIsValid();
-        //            this.OnPropertyChanged();
-        //        }
-        //    }
-        //}
 
         private ViewModels.OptionSex _sex;
         public ViewModels.OptionSex Sex
@@ -273,6 +208,19 @@ namespace TP2_interface_graphique.Models
             User.Birthday = _user.Birthday;
 
             tp2Context.SaveChanges();
+        }
+
+        public static List<Models.Predictions> ShowPredictionOfUser(int UserId)
+        {
+            TP2Context TP2Context = new TP2Context();
+            List<Models.Predictions> predictions1 = new List<Models.Predictions>();
+            Models.Users users = TP2Context.Users.Include(u => u.Predictions).Where(u => u.UsersId == UserId).First();
+
+            foreach (Models.Predictions predictions in users.Predictions)
+            {
+                predictions1.Add(predictions);
+            }
+            return predictions1;
         }
     }
 }

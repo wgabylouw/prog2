@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -74,6 +75,28 @@ namespace TP2_interface_graphique.Models
                     this.OnPropertyChanged();
                 }
 
+            }
+        }
+
+        private string _imagePath = "";
+        [NotMapped]
+        public string ImagePath
+        {
+            get { return this._imagePath;}
+            set
+            {
+                this._imagePath = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateTime _datePrediction;
+        public DateTime DatePrediction 
+        {
+            get { return this._datePrediction;}
+            set
+            {
+                _datePrediction = value;
             }
         }
 

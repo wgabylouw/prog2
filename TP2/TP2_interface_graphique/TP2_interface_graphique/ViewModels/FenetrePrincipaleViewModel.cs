@@ -19,10 +19,11 @@ namespace TP2_interface_graphique.ViewModels
     class FenetrePrincipaleViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        public ICommand MAJUserCommand { get; set; }
-        public ICommand OpenTrainCommand { get; set; }
-        public ICommand OpenTestCommand { get; set; }
-        public ICommand PredictionCommand { get; set; }
+        public ICommand MAJUserCommand { get; private set; }
+        public ICommand OpenTrainCommand { get; private set; }
+        public ICommand OpenTestCommand { get; private set; }
+        public ICommand PredictionCommand { get; private set; }
+        public ICommand RetourCommand { get; private set; }
         public Models.Users User { get; set; }
         public ObservableCollection<string> Cities { get; set; }
         public ObservableCollection<int> Ks { get; set; }
@@ -31,6 +32,10 @@ namespace TP2_interface_graphique.ViewModels
         public Models.Predictions Predictions { get; set; }
 
         public ObservableCollection<string> Algorithms { get; set; }
+        public ObservableCollection<Models.Predictions> ListePredictionsUser { get; private set; }
+        public ObservableCollection<Models.LigneMatriceConfusion> ListeMatriceConfusions { get; set; }
+        public ObservableCollection<Wine> ListeWine { get; set; }
+        public TP2Context TP2Context { get; set; }
         public KNN KNN { get; set; }
         private string _testPath;
         public string TestPath
@@ -42,26 +47,38 @@ namespace TP2_interface_graphique.ViewModels
                 OnPropertyChanged();
             }
         }
-        
-        //public string ImagePath { get; set; }
-        
+        private float _accuracy;
+        public float Accuracy
+        {
+            get { return _accuracy; }
+            set
+            {
+                _accuracy = value;
+                OnPropertyChanged();
+            }
+        }
+
 
 
         public FenetrePrincipaleViewModel()
         {
-            //ImagePath = "/Views/Image/first.png";
+            TP2Context = new TP2Context();
+            ListeWine = new ObservableCollection<Wine>();
             KNN = new KNN();
             TestPath = "";
             Ks = new ObservableCollection<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             Algorithms = new ObservableCollection<string>() { "selection", "shell" };
+            ListeMatriceConfusions = new ObservableCollection<Models.LigneMatriceConfusion>();
             this.Cities = new ObservableCollection<string>()
             {
                 "Québec",
                 "Lévis",
                 "Rimouski"
             };
-
+            ListePredictionsUser = new ObservableCollection<Models.Predictions>();
             User = (Models.Users)Application.Current.Properties["test"];
+            //User.Predictions = Models.Users.ShowPredictionOfUser(User.UsersId);
+            Refresh();
 
             Parameters = new Models.Parameters();
             Parameters.K = 1;
@@ -78,6 +95,8 @@ namespace TP2_interface_graphique.ViewModels
                     OpenFileDialog openFileDialog = new OpenFileDialog();
                     if (openFileDialog.ShowDialog() == true)
                         Parameters.TrainPath = openFileDialog.FileName;
+                    foreach (Wine wine in KNN.ImportAllSamples(Parameters.TrainPath))
+                        ListeWine.Add(wine);
                 });
 
             OpenTestCommand = new RelayCommand(
@@ -90,6 +109,8 @@ namespace TP2_interface_graphique.ViewModels
                     {
                         KNN.Evaluate(openFileDialog.FileName);
                         TestPath = openFileDialog.FileName;
+                        AfficherMatriceConfusion();
+                        Accuracy = KNN.Accuracy;
                     }
                 });
 
@@ -105,8 +126,15 @@ namespace TP2_interface_graphique.ViewModels
                 });
             PredictionCommand = new RelayCommand(
                 o => Parameters.IsValid && Predictions.IsValid,
-                o => CalculerQualite()
+                o => { CalculerQualite(); Refresh(); }
                 ) ;
+            RetourCommand = new RelayCommand(
+                o => true,
+                o => {
+                    new MainWindow().Show();
+                    fermer();
+                }
+                );
 
 
         }
@@ -140,7 +168,9 @@ namespace TP2_interface_graphique.ViewModels
                 CitricAcid = Predictions.CitricAcid,
                 VolatileAcidity = Predictions.VolatileAcidity,
                 Alcohol = Predictions.Alcohol,
-                Quality = Predictions.Quality
+                Quality = Predictions.Quality,
+                DatePrediction = DateTime.Today
+                
 
             });
             //Predictions.ParametersId = Parameters.ParametersId;
@@ -148,19 +178,40 @@ namespace TP2_interface_graphique.ViewModels
 
 
 
-            //if (result == 3)
-            //    ImagePath = "/Views/Image/third.png";
-            //else if (result == 6)
-            //    ImagePath = "/Views/Image/second.png";
-            //else if (result == 9)
-            //    ImagePath = "/Views/Image/first.png";
-            //else MessageBox.Show("Erreur !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (result == 3)
+                Predictions.ImagePath = "/Views/Image/third.png";
+            else if (result == 6)
+                Predictions.ImagePath = "/Views/Image/second.png";
+            else if (result == 9)
+                Predictions.ImagePath = "/Views/Image/first.png";
+            else MessageBox.Show("Erreur !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
 
             //MessageBox.Show(knn.Predict(wine).ToString());
+        }
+        private void Refresh()
+        {
+            ListePredictionsUser.Clear();
+            foreach (Models.Predictions prediction in TP2Context.Predictions.Where(u => u.UsersId == User.UsersId).ToList())
+                ListePredictionsUser.Add(prediction);
         }
         private void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public void AfficherMatriceConfusion()
+        {
+            ListeMatriceConfusions.Clear();
+            
+            ListeMatriceConfusions.Add(new Models.LigneMatriceConfusion(KNN.ConfusionMatrix, 3));
+            ListeMatriceConfusions.Add(new Models.LigneMatriceConfusion(KNN.ConfusionMatrix, 6));
+            ListeMatriceConfusions.Add(new Models.LigneMatriceConfusion(KNN.ConfusionMatrix, 9));
+        }
+        private void fermer()
+        {
+            var windows = Application.Current.Windows;
+            for (var i = 0; i < windows.Count; i++)
+                if (windows[i].DataContext == this)
+                    windows[i].Close();
         }
     }
 }
