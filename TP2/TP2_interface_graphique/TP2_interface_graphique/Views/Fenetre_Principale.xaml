@@ -69,14 +69,25 @@
                     </Grid.RowDefinitions>
 
                     <Label Content="Path :"  Grid.Row="0"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <Button Content="Ouvrir" Grid.Column="3" Grid.Row="0" />
+                    <TextBox Text="{Binding TestPath, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                    <Button Command="{Binding OpenTestCommand}" Content="Ouvrir" Grid.Column="3" Grid.Row="0" />
 
-                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"/>
+                    <DataGrid ItemsSource="{Binding KNN.ConfusionMatrix}" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" HeadersVisibility="all">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="" Width="*"/>
+                            <DataGridTextColumn Header="3" Width="*"/>
+                            <DataGridTextColumn Header="6" Width="*"/>
+                            <DataGridTextColumn Header="9" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
                     <Label Content="3" Grid.Row="3" HorizontalAlignment="center"/>
                     <Label Content="6" Grid.Row="4" HorizontalAlignment="center"/>
                     <Label Content="9" Grid.Row="5" HorizontalAlignment="center"/>
+
+                    <Label Content="{Binding KNN.Accuracy, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="0"/>
+
+
 
                     <Label Content="3" Grid.Row="2" Grid.Column="1" HorizontalAlignment="center"/>
                     <Label Content="6" Grid.Row="2" Grid.Column="2" HorizontalAlignment="center"/>
@@ -103,7 +114,7 @@
 
                     <Label Content="Path :"  Grid.Row="0"/>
                     <TextBox Text="{Binding Parameters.TrainPath, UpdateSourceTrigger=PropertyChanged}" Margin="100,0,0,0" Grid.Row="0" Grid.Column="0"/>
-                    <Button Command="{Binding OpenFileCommand}" Content="Ouvrir" Margin="0,0,80,0" Grid.Column="3" Grid.Row="0" />
+                    <Button Command="{Binding OpenTrainCommand}" Content="Ouvrir" Margin="0,0,80,0" Grid.Column="3" Grid.Row="0" />
 
                     <DataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
 

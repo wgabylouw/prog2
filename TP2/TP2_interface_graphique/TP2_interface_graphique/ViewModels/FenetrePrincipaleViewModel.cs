@@ -11,13 +11,17 @@ using CsvHelper;
 using Microsoft.Win32;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace TP2_interface_graphique.ViewModels
 {
-    class FenetrePrincipaleViewModel
+    class FenetrePrincipaleViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         public ICommand MAJUserCommand { get; set; }
-        public ICommand OpenFileCommand { get; set; }
+        public ICommand OpenTrainCommand { get; set; }
+        public ICommand OpenTestCommand { get; set; }
         public ICommand PredictionCommand { get; set; }
         public Models.Users User { get; set; }
         public ObservableCollection<string> Cities { get; set; }
@@ -27,12 +31,27 @@ namespace TP2_interface_graphique.ViewModels
         public Models.Predictions Predictions { get; set; }
 
         public ObservableCollection<string> Algorithms { get; set; }
-        public string ImagePath { get; set; }
+        public KNN KNN { get; set; }
+        private string _testPath;
+        public string TestPath
+        {
+            get { return _testPath; }
+            set
+            {
+                _testPath = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        //public string ImagePath { get; set; }
+        
 
 
         public FenetrePrincipaleViewModel()
         {
-            ImagePath = "/Views/Image/first.png";
+            //ImagePath = "/Views/Image/first.png";
+            KNN = new KNN();
+            TestPath = "";
             Ks = new ObservableCollection<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             Algorithms = new ObservableCollection<string>() { "selection", "shell" };
             this.Cities = new ObservableCollection<string>()
@@ -52,13 +71,26 @@ namespace TP2_interface_graphique.ViewModels
             //if (openFileDialog.ShowDialog() == true)
             //    txtEditor.Text = openFileDialog.FileName;
 
-            OpenFileCommand = new RelayCommand(
+            OpenTrainCommand = new RelayCommand(
                 o => true,
                 o =>
                 {
                     OpenFileDialog openFileDialog = new OpenFileDialog();
                     if (openFileDialog.ShowDialog() == true)
                         Parameters.TrainPath = openFileDialog.FileName;
+                });
+
+            OpenTestCommand = new RelayCommand(
+                o => Parameters.IsValid,
+                o =>
+                {
+                    KNN.Train(Parameters.TrainPath, Parameters.K,Parameters.Algorithm);
+                    OpenFileDialog openFileDialog = new OpenFileDialog();
+                    if (openFileDialog.ShowDialog() == true)
+                    {
+                        KNN.Evaluate(openFileDialog.FileName);
+                        TestPath = openFileDialog.FileName;
+                    }
                 });
 
 
@@ -116,15 +148,19 @@ namespace TP2_interface_graphique.ViewModels
 
 
 
-            if (result == 3)
-                ImagePath = "/Views/Image/third.png";
-            else if (result == 6)
-                ImagePath = "/Views/Image/second.png";
-            else if (result == 9)
-                ImagePath = "/Views/Image/first.png";
-            else MessageBox.Show("Erreur !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            //if (result == 3)
+            //    ImagePath = "/Views/Image/third.png";
+            //else if (result == 6)
+            //    ImagePath = "/Views/Image/second.png";
+            //else if (result == 9)
+            //    ImagePath = "/Views/Image/first.png";
+            //else MessageBox.Show("Erreur !", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
 
             //MessageBox.Show(knn.Predict(wine).ToString());
+        }
+        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
