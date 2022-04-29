@@ -10,7 +10,8 @@ using System.Windows;
 
 
 namespace TP2_interface_graphique.ViewModels
-{
+{   
+    // enum pour les boutons radio
     public enum OptionSex
     {
         Homme,
@@ -26,14 +27,13 @@ namespace TP2_interface_graphique.ViewModels
         public Window_New_user_ViewModel()
         {
             this.Users = new Models.Users();
-
             this.Cities = new ObservableCollection<string>()
             {
                 "Québec",
                 "Lévis",
                 "Rimouski"
             };
-
+            //instanciation du bouton radio à Homme
             Users.Sex = OptionSex.Homme;
 
             NewUserCommand = new RelayCommand(
@@ -50,7 +50,7 @@ namespace TP2_interface_graphique.ViewModels
                      }
                 );
         }
-        //fonction qui permet de fermer les pages, car on dirait que le mvvm est pas fait pour fermer des pages!!
+        //fonction qui permet de fermer les pages
         private void fermer()
         {
             var windows = Application.Current.Windows;

@@ -127,6 +127,7 @@ namespace TP2_interface_graphique.Models
 
 
         private bool _isValid;
+        [NotMapped]
         public bool IsValid
         {
             get { return this._isValid; }
@@ -169,28 +170,13 @@ namespace TP2_interface_graphique.Models
         }
 
 
-        /*Affichage d'un utilisateur dans la BD :*/
-        public static Users ShowUser(int usersId)
-        {
-            TP2Context tp2Context = new TP2Context();
-            Users users = tp2Context.Users.Find(usersId);
-            return users;
-            //Console.WriteLine($"{users.UsersId} - {users.Name}");
-        }
-
-
         /*Affichage de plusieurs utilisateurs dans la BD :*/
-        public static List<Users> ShowUsers()
+        public static List<Users> GetUsers()
         {
             TP2Context tp2Context = new TP2Context();
             List<Users> userss = tp2Context.Users.ToList();
 
             return userss;
-
-            //foreach (Users users in userss)
-            //{
-            //    Console.WriteLine($"{users.UsersId} - {users.Name}");
-            //}
         }
 
 
@@ -210,17 +196,17 @@ namespace TP2_interface_graphique.Models
             tp2Context.SaveChanges();
         }
 
-        public static List<Models.Predictions> ShowPredictionOfUser(int UserId)
-        {
-            TP2Context TP2Context = new TP2Context();
-            List<Models.Predictions> predictions1 = new List<Models.Predictions>();
-            Models.Users users = TP2Context.Users.Include(u => u.Predictions).Where(u => u.UsersId == UserId).First();
+        //public static List<Models.Predictions> ShowPredictionOfUser(int UserId)
+        //{
+        //    TP2Context TP2Context = new TP2Context();
+        //    List<Models.Predictions> predictions1 = new List<Models.Predictions>();
+        //    Models.Users users = TP2Context.Users.Include(u => u.Predictions).Where(u => u.UsersId == UserId).First();
 
-            foreach (Models.Predictions predictions in users.Predictions)
-            {
-                predictions1.Add(predictions);
-            }
-            return predictions1;
-        }
+        //    foreach (Models.Predictions predictions in users.Predictions)
+        //    {
+        //        predictions1.Add(predictions);
+        //    }
+        //    return predictions1;
+        //}
     }
 }

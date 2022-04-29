@@ -19,9 +19,6 @@ namespace TP2_interface_graphique
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder) 
         {
             string ConnexionString = "server=localhost;Port=3306;database=tp2;user=usertp2;password=Test1234;";
-
-            //string ConnexionString = @"Server=(localdb)\MSSQLLocalDB;Database=tp2_poo2;User=Test;Password=Test1234;Trusted_Connection=True;";
-
             dbContextOptionsBuilder.UseMySql(ConnexionString);
         
         }

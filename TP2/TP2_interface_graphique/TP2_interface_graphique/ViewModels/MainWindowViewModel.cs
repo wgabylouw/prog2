@@ -17,14 +17,18 @@ namespace TP2_interface_graphique.ViewModels
         public ObservableCollection<Models.Users> CollectionUsers { get; set; }
         public Models.Users User { get; set; }
 
+
+
+
+
         public MainWindowViewModel()
         {
             User = new Models.Users();
-
             CollectionUsers = new ObservableCollection<Models.Users>();
-            foreach (Models.Users user in Models.Users.ShowUsers())
+            foreach (Models.Users user in Models.Users.GetUsers())
                 CollectionUsers.Add(user);
-            //List<Models.Users> listeUsers = Models.Users.ShowUsers();
+
+            //Section commandes
 
             SeConnecterCommand = new RelayCommand(
                 o => User.TestIsValid(),
@@ -32,28 +36,31 @@ namespace TP2_interface_graphique.ViewModels
                 );
             CreerCommand = new RelayCommand(
                 o => true,
-                o => { new Views.Window_New_user().Show();
-                    //Application.Current.MainWindow.Close();
+                o =>
+                { // création de la page Window_New_user et affichage + fermeture de l'ancienne page
+                    new Views.Window_New_user().Show();
                     fermer();
                 }
                 );
             QuitterCommand = new RelayCommand(
                 o => true,
-                o => fermer()//Application.Current.MainWindow.Close()
+                o => fermer()
                 );
         }
         private void Connection()
         {
+            // création d'une propriété globale "test" pour passer les infos utilisateurs aux autres pages
             Application.Current.Properties["test"] = User;
+
             Views.Fenetre_Principale Fenetre = new Views.Fenetre_Principale();
-            //Fenetre.DataContext = Application.Current.MainWindow.DataContext;
             Fenetre.Show();
-            //Application.Current.MainWindow.Close();
             fermer();
             
         }
         private void fermer()
         {
+            // vérifie chaque fenêtre qui a déja été instanciée et ferme celle qui a le bon datacontext
+
             var windows = Application.Current.Windows;
             for (var i = 0; i < windows.Count; i++)
                 if (windows[i].DataContext == this)

@@ -61,9 +61,6 @@ namespace TP2_interface_graphique.Models
             }
         }
 
-
-        //public int PredictionsId { get; set; }
-
         public Predictions Predictions { get; set; }
         private bool _isValid;
         public bool IsValid { get { return this._isValid; } }

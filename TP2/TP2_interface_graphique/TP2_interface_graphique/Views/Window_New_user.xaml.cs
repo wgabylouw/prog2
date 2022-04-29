@@ -22,7 +22,6 @@ namespace TP2_interface_graphique.Views
         public Window_New_user()
         {
             InitializeComponent();
-
             DataContext = new ViewModels.Window_New_user_ViewModel();
         }
     }
