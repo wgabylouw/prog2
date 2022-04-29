@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:TP2_interface_graphique.ViewModels" xmlns:models="clr-namespace:TP2_interface_graphique.Models"
         mc:Ignorable="d"
-        Title="Fenetre principale" Height="500" Width="850">
+        Title="Fenetre principale" Height="500" Width="850" Icon="{iconPacks:FontAwesomeImage Kind=WineGlassAltSolid}">
     <Window.Resources>
         <models:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
         <models:VirguleConverter x:Key="VirguleConverter"/>
@@ -13,8 +14,8 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Fichier" FontSize="18">
-                <MenuItem Header="Ouvrir Train.csv" Command="{Binding OpenTrainCommand}"/>
-                <MenuItem Header="Quitter" Command="{Binding RetourCommand}"/>
+                <MenuItem Header="Ouvrir Train.csv" Command="{Binding OpenTrainCommand}" Icon="{iconPacks:FontAwesome Kind=FileCsvSolid}"/>
+                <MenuItem Header="Quitter" Command="{Binding RetourCommand}" Icon="{iconPacks:FontAwesome Kind=DoorOpenSolid}"/>
             </MenuItem>
         </Menu>
 
@@ -47,7 +48,12 @@
                         <Label Content="Acidité Volatile : " HorizontalAlignment="Left" Margin="50,50,0,50" Padding="0,0,0,0" Grid.Column="2" Grid.Row="1"/>
                         <TextBox Text="{Binding Predictions.VolatileAcidity, UpdateSourceTrigger=PropertyChanged,Delay=1000,Converter={StaticResource VirguleConverter}}" HorizontalContentAlignment="Center" Margin="0,50,50,50" Grid.Column="3" Grid.Row="1"/>
 
-                        <Button Command="{Binding PredictionCommand}" Content="Prédiction" Grid.Column="0" Grid.Row="2" Margin="50" Grid.ColumnSpan="2"/>
+                        <Button Command="{Binding PredictionCommand}" Grid.Column="0" Grid.Row="2" Margin="50" Grid.ColumnSpan="2">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconFontAwesome Kind="WineBottleSolid"  Width="30" Height="30" VerticalAlignment="Center"/>
+                                <Label>Prédiction</Label>
+                            </StackPanel>
+                        </Button>
 
                         <Image Source="{Binding Predictions.ImagePath, UpdateSourceTrigger=PropertyChanged}" Width="60" Height="75" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" />
                     </Grid>
@@ -75,7 +81,13 @@
                         <TextBox Text="{Binding TestPath, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
 
 
-                        <Button Command="{Binding OpenTestCommand}" Content="Ouvrir" Grid.Column="3" Grid.Row="0" />
+                        <Button Command="{Binding OpenTestCommand}" Grid.Column="3" Grid.Row="0">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconFontAwesome Kind="FileCsvSolid"  Width="30" Height="30" VerticalAlignment="Center"/>
+                                <Label>Ouvrir</Label>
+                            </StackPanel>
+                        </Button>
+
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
                             <Label Content="{Binding Accuracy, UpdateSourceTrigger=PropertyChanged}"/>
                             <Label Content="%"/>
@@ -115,7 +127,12 @@
 
                         <Label Content="Fichier d'entrainement :"  Grid.Row="0" FontSize="18"/>
                         <TextBox Text="{Binding Parameters.TrainPath, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
-                        <Button Command="{Binding OpenTrainCommand}" Content="Ouvrir" Grid.Column="3" Grid.Row="0" />
+                        <Button Command="{Binding OpenTrainCommand}" Grid.Column="3" Grid.Row="0" >
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconFontAwesome Kind="FileCsvSolid"  Width="30" Height="30" VerticalAlignment="Center"/>
+                                <Label>Ouvrir</Label>
+                            </StackPanel>
+                        </Button>
 
                         <DataGrid ItemsSource="{Binding ListeWine}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" AutoGenerateColumns="False">
                             <DataGrid.Columns>
@@ -186,7 +203,12 @@
 
                         <DatePicker SelectedDate="{Binding User.Birthday, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" Margin="80,10,80,10" Grid.Column="1" Grid.Row="5"/>
 
-                        <Button Command="{Binding MAJUserCommand}" Content="Modifier" Margin="60,10,60,10" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"/>
+                        <Button Command="{Binding MAJUserCommand}" Margin="60,10,60,10" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconFontAwesome Kind="UserSolid"  Width="30" Height="30" VerticalAlignment="Center"/>
+                                <Label>Modifier</Label>
+                            </StackPanel>
+                        </Button>
                     </Grid>
                 </TabItem>
             </TabControl>

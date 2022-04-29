@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         xmlns:local="clr-namespace:TP2_interface_graphique.ViewModels" xmlns:models="clr-namespace:TP2_interface_graphique.Models" 
         mc:Ignorable="d"
         FontSize="20"
-        Title="Nouvel utilisateur" Height="450" Width="800">
+        Title="Nouvel utilisateur" Height="450" Width="800" Icon="{iconPacks:FontAwesomeImage Kind=UsersSolid}">
     
     <Window.Resources>
         <models:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
@@ -45,8 +46,18 @@
 
         <DatePicker SelectedDate="{Binding Users.Birthday, UpdateSourceTrigger=PropertyChanged}" SelectedDateFormat="Short" Margin="80,10,80,10" Grid.Column="1" Grid.Row="5"/>
 
-        <Button Command="{Binding RetourCommand}" Content="Retour" Margin="60,10,60,10" Grid.Column="0" Grid.Row="6"/>
-        <Button Command="{Binding NewUserCommand}" Content="Créer" Margin="60,10,60,10" Grid.Column="1" Grid.Row="6"/>
+        <Button Command="{Binding RetourCommand}" Margin="60,10,60,10" Grid.Column="0" Grid.Row="6">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconFontAwesome Kind="ArrowLeftSolid"  Width="30" Height="30" VerticalAlignment="Center"/>
+                <Label>Retour</Label>
+            </StackPanel>
+        </Button>
+        <Button Command="{Binding NewUserCommand}" Margin="60,10,60,10" Grid.Column="1" Grid.Row="6">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconFontAwesome Kind="UserSolid"  Width="30" Height="30" VerticalAlignment="Center"/>
+                <Label>Créer</Label>
+            </StackPanel>
+        </Button>
 
 
 

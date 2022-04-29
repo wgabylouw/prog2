@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TP2_interface_graphique"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         FontSize="20"
         
-        Title="Accueil" Height="400" Width="800">
+        Title="Accueil" Height="400" Width="800" Icon="{iconPacks:FontAwesomeImage Kind=WineGlassSolid}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -34,11 +35,27 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Button Command="{Binding CreerCommand}" Content="Créer" Margin="90,40,90,40" Grid.Row="1" Grid.Column="0" />
+        <Button Command="{Binding CreerCommand}" Margin="90,40,90,40" Grid.Row="1" Grid.Column="0">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconFontAwesome Kind="UserSolid"  Width="30" Height="30" VerticalAlignment="Center"/>
+                <Label>Créer</Label>
+            </StackPanel>
+        </Button>
 
-        <Button Command="{Binding SeConnecterCommand}" Content="Se connecter" Margin="90,40,90,40" Grid.Row="1" Grid.Column="1"/>
+        <Button Command="{Binding SeConnecterCommand}" Margin="90,40,90,40" Grid.Row="1" Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconFontAwesome Kind="LinkSolid"  Width="30" Height="30" VerticalAlignment="Center"/>
+                <Label>Se Connecter</Label>
+            </StackPanel>
+        </Button>
 
-        <Button Command="{Binding QuitterCommand }" Content="Quitter" Margin="150,40,150,40" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <!--<Button Command="{Binding QuitterCommand }" Content="Quitter" Margin="150,40,150,40" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>-->
+        <Button Command="{Binding QuitterCommand }" Margin="150,40,150,40" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconFontAwesome Kind="DoorOpenSolid"  Width="30" Height="30" VerticalAlignment="Center"/>
+                <Label>Quitter</Label>
+            </StackPanel>
+        </Button>
 
     </Grid>
 
